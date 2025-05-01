@@ -7,13 +7,16 @@ import App from "./App.tsx";
 import { Toaster } from "./components/ui/sonner.tsx";
 import axios from "axios";
 import { API_ENDPOINT } from "./data/app.ts";
+import AppContextProvider from "./context/app.tsx";
 
 axios.defaults.baseURL = API_ENDPOINT;
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <HashRouter>
-      <App />
+      <AppContextProvider>
+        <App />
+      </AppContextProvider>
       <Toaster richColors position="top-right" />
     </HashRouter>
   </StrictMode>
