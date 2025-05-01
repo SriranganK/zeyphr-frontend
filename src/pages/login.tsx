@@ -5,7 +5,6 @@ import {
   CardContent,
   CardDescription,
   CardFooter,
-  CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -155,18 +154,16 @@ const LoginPage: React.FC = () => {
   return (
     <div className="flex items-center justify-center h-screen w-screen bg-background px-4">
       <Card className="w-full max-w-80 sm:max-w-96 shadow-xl rounded-2xl">
-        <CardHeader>
-          <div className="flex items-center gap-4">
+        <div className="flex flex-col items-center sm:gap-4 justify-center">
+          <div className="flex items-center gap-2">
             <img src={zeyphrLogo} alt="Zeyphr Logo" className="w-14 h-14" />
-            <div>
-              <CardTitle className="text-3xl font-semibold">Zeyphr</CardTitle>
-              <CardDescription className="text-sm text-muted-foreground">
-                Bringing Web3 to everyone
-              </CardDescription>
-            </div>
+            <CardTitle className="text-4xl sm:text-6xl font-semibold">Zeyphr</CardTitle>
           </div>
-        </CardHeader>
-        <CardContent className="flex flex-col gap-6 p-6 pt-0">
+          <CardDescription className="text-lg sm:text-xl text-muted-foreground">
+            Bringing Web3 to everyone
+          </CardDescription>
+        </div>
+        <CardContent className="flex flex-col gap-6 p-6 pt-0 sm:pt-6">
           {step === 0 && (
             <>
               <p className="text-center text-sm text-muted-foreground">
@@ -235,7 +232,7 @@ const LoginPage: React.FC = () => {
                       <Info />
                       <AlertTitle>Note</AlertTitle>
                       <AlertDescription>
-                        Please save this security key safely — you’ll need it to
+                        Please save your password safely — you’ll need it to
                         log in or approve transactions.
                       </AlertDescription>
                     </Alert>
@@ -243,7 +240,7 @@ const LoginPage: React.FC = () => {
                   {/* password */}
                   <div className="grid w-full max-w-sm items-center gap-1.5">
                     <Label htmlFor="password" className="text-muted-foreground">
-                      Security Key
+                      Password
                     </Label>
                     <Input
                       startIcon={KeyRound}
@@ -261,7 +258,7 @@ const LoginPage: React.FC = () => {
                         htmlFor="confirm-password"
                         className="text-muted-foreground"
                       >
-                        Confirm Security Key
+                        Confirm Password
                       </Label>
                       <Input
                         startIcon={KeyRound}
