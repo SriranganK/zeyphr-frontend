@@ -31,8 +31,11 @@ import { REGEXP_ONLY_DIGITS } from "input-otp";
 import axios, { isAxiosError } from "axios";
 import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useAppContext } from "@/context/app";
+import { Navigate } from "react-router";
 
 const LoginPage: React.FC = () => {
+  const { token, setToken } = useAppContext();
   const [email, setEmail] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [verificationId, setVerificationId] = useState<string>("");
@@ -106,12 +109,22 @@ const LoginPage: React.FC = () => {
   const handleLoginOrCreate = () => {
     if (loading) return;
 
+    if (password.length !== 6) {
+      toast.error("Password must at least be 6 characters long.");
+      return;
+    }
+
+    const cleanUp = () => {
+      setEmail("");
+      setVerificationId("");
+      setStep(0);
+      setIsExistingUser(false);
+      setPassword("");
+      setConfirmPassword("");
+    };
+
     // new user
     if (!isExistingUser) {
-      if (password.length !== 6) {
-        toast.error("Password must at least be 6 characters long.");
-        return;
-      }
       if (password !== confirmPassword) {
         toast.error("Passwords doesn't match.");
         return;
@@ -126,11 +139,44 @@ const LoginPage: React.FC = () => {
         success: "Account has been created successfully!!",
         error: "Failed to create account. Please try again.",
       });
-      registerUserPromise.then(console.log).finally(() => setLoading(false));
+      registerUserPromise
+        .then(({ data }) => {
+          setToken!(data.token);
+          cleanUp();
+        }).catch((err) => {
+          if (isAxiosError(err)) {
+            if (err.response?.data.error === "User already exists") {
+              toast.error("User already exists");
+              return;
+            }
+          }
+        }).finally(() => setLoading(false));
     }
     // existing user
     else {
-      console.log({ email, password });
+      setLoading(true);
+      const loginUserPromise = axios.post<{ success: boolean; token: string }>("/auth/login", {
+        emailAddress: email,
+        password,
+      });
+      toast.promise(loginUserPromise, {
+        loading: "Authenticating...",
+        success: "Logged in successfully!!",
+        error: "Failed to login. Please try again.",
+      });
+      loginUserPromise
+        .then(({ data }) => {
+          if (data.success) {
+            setToken!(data.token);
+            setStep(0);
+            cleanUp();
+          }
+        }).catch((err) => {
+          if (isAxiosError(err)) {
+            toast.error(err.response?.data.error ?? "Some error occured");
+            return;
+          }
+        }).finally(() => setLoading(false));
     }
   };
 
@@ -151,12 +197,16 @@ const LoginPage: React.FC = () => {
     }
   }, [step, email]);
 
+  if (token.length > 0) {
+    return <Navigate to="/home" />;
+  }
+
   return (
     <div className="flex items-center justify-center h-screen w-screen bg-background px-4">
       <Card className="w-full max-w-80 sm:max-w-96 shadow-xl rounded-2xl">
         <div className="flex flex-col items-center sm:gap-4 justify-center">
           <div className="flex items-center gap-2">
-            <img src={zeyphrLogo} alt="Zeyphr Logo" className="w-14 h-14" />
+            <img src={zeyphrLogo} alt="Zeyphr Logo" className="size-14" />
             <CardTitle className="text-4xl sm:text-6xl font-semibold">Zeyphr</CardTitle>
           </div>
           <CardDescription className="text-lg sm:text-xl text-muted-foreground">
@@ -243,6 +293,7 @@ const LoginPage: React.FC = () => {
                       Password
                     </Label>
                     <Input
+                      autoFocus
                       startIcon={KeyRound}
                       type="password"
                       id="password"
