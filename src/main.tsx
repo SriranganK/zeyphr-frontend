@@ -17,7 +17,7 @@ createRoot(document.getElementById("root")!).render(
       <AppContextProvider>
         <App />
       </AppContextProvider>
-      <Toaster richColors position="top-right" />
+      <Toaster richColors />
     </HashRouter>
   </StrictMode>
 );

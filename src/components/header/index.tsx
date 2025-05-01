@@ -1,22 +1,15 @@
 import { Link } from "react-router";
 import zeyphrLogo from "../../assets/images/logo.png";
-import { Loader, LogOut, Settings, User } from "lucide-react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Loader } from "lucide-react";
 import { jwtDecode } from "jwt-decode";
 import { useAppContext } from "@/context/app";
 import { CustomJwtPayload } from "@/lib/types";
-import { DICEBEAR_API } from "@/data/app";
 import ToolTip from "../tooltip";
 import { getWalletBalance } from "@/crypto/balance";
 import { useCallback, useEffect, useState } from "react";
 import LogOutConfirmation from "./logout";
 import SearchInput from "./search-input";
+import AvatarActions from "./actions";
 
 const Header: React.FC = () => {
   const { token } = useAppContext();
@@ -58,7 +51,7 @@ const Header: React.FC = () => {
           <div className="sm:hidden">
             <SearchInput />
           </div>
-          <div className="flex items-center gap-0.5">
+          <div className="flex items-center gap-1">
             {balanceFetching ? (
               <ToolTip hideOnMobile content="Fetching balance...">
                 <Loader className="size-5 animate-spin text-muted-foreground" />
@@ -68,33 +61,7 @@ const Header: React.FC = () => {
             )}
             <p className="text-sm">ETH</p>
           </div>
-          <DropdownMenu>
-            <ToolTip hideOnMobile content="Actions">
-              <DropdownMenuTrigger asChild>
-                <Avatar className="border cursor-pointer hover:opacity-50 size-10">
-                  <AvatarImage src={`${DICEBEAR_API}=${publicKey}`} />
-                  <AvatarFallback>ZR</AvatarFallback>
-                </Avatar>
-              </DropdownMenuTrigger>
-            </ToolTip>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem>
-                <User />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Settings />
-                Settings
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                variant="destructive"
-                onClick={() => setShowLogout(true)}
-              >
-                <LogOut />
-                Log Out
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <AvatarActions {...{ publicKey, setShowLogout }} />
         </div>
       </div>
       <LogOutConfirmation {...{ showLogout, setShowLogout }} />

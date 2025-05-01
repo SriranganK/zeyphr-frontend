@@ -9,6 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "../ui/alert-dialog";
+import { LogOut } from "lucide-react";
 
 const LogOutConfirmation: React.FC<LogOutConfirmationProps> = ({
   showLogout,
@@ -29,6 +30,7 @@ const LogOutConfirmation: React.FC<LogOutConfirmationProps> = ({
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction onClick={() => setToken!("")}>
             Log Out
+            <LogOut />
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
