@@ -9,3 +9,6 @@ export const isValidEmail = (email: string): boolean => {
   const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return regex.test(email);
 };
+
+export const sleep = (durationMs: number) => 
+  new Promise((resolve) => setTimeout(resolve, durationMs));
