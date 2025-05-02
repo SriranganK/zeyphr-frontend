@@ -1,8 +1,6 @@
 import { ethers } from "ethers";
 import contractABI from "../data/abi.json";
-
-const contractAddress = "0x3E0c7bCA0e9870658615C9871FAdead9a91fAA2B";
-const rpcUrl = "https://json-rpc.evm.testnet.iotaledger.net";
+import { CONTRACT_ADDRESS, RPC_URL } from "@/data/app";
 
 export const getContract = () => {
   const privateKey = process.env.NEXT_PUBLIC_PRIVATE_KEY;
@@ -11,9 +9,9 @@ export const getContract = () => {
     throw new Error("Give Private key");
   }
 
-  const provider = new ethers.JsonRpcProvider(rpcUrl);
+  const provider = new ethers.JsonRpcProvider(RPC_URL);
   const wallet = new ethers.Wallet(privateKey, provider);
-  const contract = new ethers.Contract(contractAddress, contractABI, wallet);
+  const contract = new ethers.Contract(CONTRACT_ADDRESS, contractABI, wallet);
 
   return contract;
 };

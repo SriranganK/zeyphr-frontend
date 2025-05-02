@@ -1,9 +1,8 @@
+import { RPC_URL } from "@/data/app";
 import { ethers } from "ethers";
 
-const rpcUrl = "https://json-rpc.evm.testnet.iotaledger.net/";
-
 export const getWalletBalance = async (address: string) => {
-  const provider = new ethers.JsonRpcProvider(rpcUrl);
+  const provider = new ethers.JsonRpcProvider(RPC_URL);
   const balance = await provider.getBalance(address);
   const balanceInEther = ethers.formatEther(balance);
 

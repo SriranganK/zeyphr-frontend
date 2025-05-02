@@ -7,7 +7,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import ToolTip from "../tooltip";
-import { LogOut, Settings, UserRoundPen } from "lucide-react";
+import { CreditCard, LogOut, Settings, UserRoundPen } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Drawer,
@@ -55,6 +55,13 @@ const AvatarActions: React.FC<AvatarActionsProps> = ({
         >
           <UserRoundPen />
           Manage Profile
+        </Wrapper.Item>
+        <Wrapper.Item
+          variant={isMobile ? ("ghost" as "default") : "default"}
+          className="justify-start"
+        >
+          <CreditCard />
+          Manage Card
         </Wrapper.Item>
         <Wrapper.Item
           variant={isMobile ? ("ghost" as "default") : "default"}

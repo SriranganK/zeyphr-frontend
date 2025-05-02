@@ -116,7 +116,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ user }) => {
           </Avatar>
           <div className="flex flex-col items-start">
             <p>{user.username}</p>
-            <p>{user.publicKey}</p>
+            <p className="text-sm text-muted-foreground">{user.publicKey}</p>
           </div>
         </Button>
       </CommandItem>
