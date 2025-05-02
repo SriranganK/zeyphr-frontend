@@ -2,7 +2,8 @@ import { ethers } from "ethers";
 import contractABI from "../data/abi.json";
 import { CONTRACT_ADDRESS, RPC_URL } from "@/data/app";
 
-export const getContract = (privateKey: string) => {
+export const getContract = () => {
+  const privateKey = "";
   if (typeof privateKey !== "string" || privateKey.length === 0) {
     throw new Error("Give Private key");
   }

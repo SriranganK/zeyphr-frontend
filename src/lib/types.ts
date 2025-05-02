@@ -14,12 +14,16 @@ export type HomePageItem = {
     tokenId: number;
     price: string;
     seller: string;
-    buyer: string;
-    sold: boolean;
     listed: boolean;
     tokenURI: string;
     image: string;
     name: string;
-    desc: string;
+    description: string;
     availableSupply: number;
 }
+
+export type ItemMetaData = {
+    name: string;
+    description: string;
+    image: string;
+};

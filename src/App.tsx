@@ -8,7 +8,7 @@ const HomePage = lazy(() => import("./pages/home"));
 
 const App: React.FC = () => {
   return (
-    <div className="flex w-screen h-screen">
+    <div className="flex w-screen h-screen overflow-x-hidden">
       <Suspense fallback={<SuspenseLoader />}>
         <Routes>
           <Route path="/" element={<LoginPage />} />
