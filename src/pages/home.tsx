@@ -1,65 +1,112 @@
 import Header from "@/components/header";
-import HomeProductCard from "@/components/home/product-card";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { Skeleton } from "@/components/ui/skeleton";
+import Products from "@/components/home/products";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useAppContext } from "@/context/app";
-import { getReadOnlyContract } from "@/crypto/contract";
-import { Sparkles } from "lucide-react";
-import { useEffect, useState } from "react";
+import {
+  ArrowDownLeft,
+  ArrowUpRight,
+  BanknoteArrowDown,
+  BanknoteArrowUp,
+  DraftingCompass,
+  Rocket,
+  ScanLine,
+  UserRoundSearch,
+  Wine,
+} from "lucide-react";
 import { Navigate } from "react-router";
-import { toast } from "sonner";
-
-const contract = getReadOnlyContract();
 
 const HomePage: React.FC = () => {
   const { token } = useAppContext();
-  const [productIds, setProductIds] = useState<number[]>([]);
-  const [fetching, setFetching] = useState<boolean>(false);
-
-  // fetch products
-  useEffect(() => {
-    const fetchProducts = async () => {
-      setFetching(true);
-      try {
-        setProductIds(await contract.getListedItems());
-      } catch {
-        toast.error("Failed to fetch products please try again");
-      } finally {
-        setFetching(false);
-      }
-    };
-    fetchProducts();
-  }, []);
 
   if (!token.length) {
     return <Navigate to="/" />;
   }
 
   return (
-    <div className="w-screen h-screen flex flex-col p-3">
+    <div className="w-screen h-screen flex flex-col p-3 gap-4">
       <Header />
-      <div className="flex flex-col px-2">
-        <div className="self-center flex items-center gap-2">
-          <Sparkles />
-          <p className="text-xl font-medium capitalize">
-            Recently listed products
-          </p>
-        </div>
-        <ScrollArea
-          type="auto"
-          className="[&>[data-radix-scroll-area-viewport]]:py-4 [&>[data-radix-scroll-area-viewport]]:max-h-80"
-        >
-          <div className="flex flex-wrap gap-4 sm:gap-8 justify-center">
-            {fetching &&
-              [..."1234"].map((i) => (
-                <Skeleton key={i} className="w-80 sm:w-64 h-72 rounded-xl" />
-              ))}
-            {productIds.map((pid) => (
-              <HomeProductCard key={pid} pid={pid} />
-            ))}
-          </div>
-        </ScrollArea>
+      <div className="grid grid-cols-2 w-full h-full gap-4">
+        <Tabs className="p-4" orientation="vertical">
+          <TabsList defaultValue="send" className="self-center h-auto p-1">
+            <TabsTrigger value="send" className="flex flex-col gap-0.5">
+              <ArrowUpRight />
+              Send
+            </TabsTrigger>
+            <TabsTrigger value="receive" className="flex flex-col gap-0.5">
+              <ArrowDownLeft />
+              Receive
+            </TabsTrigger>
+            <TabsTrigger value="scan-pay" className="flex flex-col gap-0.5">
+              <ScanLine />
+              Scan & Pay
+            </TabsTrigger>
+            <TabsTrigger value="withdraw" className="flex flex-col gap-0.5">
+              <BanknoteArrowDown />
+              Withdraw
+            </TabsTrigger>
+            <TabsTrigger value="deposit" className="flex flex-col gap-0.5">
+              <BanknoteArrowUp />
+              Deposit
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent
+            value="send"
+            className="flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-4"
+          >
+            {/* amount */}
+            <div className="flex flex-col items-center">
+              <Input
+                autoFocus
+                underlined
+                placeholder="0.0"
+                className="text-center border-b-0 text-7xl"
+                type="number"
+              />
+              <p className="font-light">ETH</p>
+            </div>
+            {/* recipient */}
+            <div className="grid w-full max-w-sm items-center gap-1.5">
+              <Label htmlFor="recipient" className="text-muted-foreground">
+                Recipient
+              </Label>
+              <div className="flex items-center gap-2">
+                <Input
+                  id="recipient"
+                  type="search"
+                  placeholder="Username, public key, email address"
+                />
+                <Button>
+                  <UserRoundSearch />
+                  Search
+                </Button>
+              </div>
+            </div>
+          </TabsContent>
+          <TabsContent
+            value="withdraw"
+            className="flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-4"
+          >
+            <DraftingCompass className="size-20 text-destructive opacity-70 animate-pulse" />
+            <p className="text-xl text-muted-foreground animate-pulse">
+              Under Construction
+            </p>
+          </TabsContent>
+          <TabsContent
+            value="deposit"
+            className="flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-4"
+          >
+            <Wine className="size-20 text-destructive opacity-70 animate-pulse" />
+            <p className="text-xl text-muted-foreground animate-pulse">
+              Stay Tuned
+            </p>
+          </TabsContent>
+        </Tabs>
+        <div></div>
       </div>
+      <Products />
     </div>
   );
 };

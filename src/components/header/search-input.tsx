@@ -32,7 +32,7 @@ const SearchInput: React.FC = () => {
     <>
       {isMobile ? (
         <Button size="icon" variant="ghost" onClick={() => setOpen(true)}>
-          <Search />
+          <Search className="text-muted-foreground" />
         </Button>
       ) : (
         <Input

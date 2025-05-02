@@ -8,7 +8,7 @@ import { toast } from "sonner";
 import { ScrollArea } from "../ui/scroll-area";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { CreditCard, ShoppingCart } from "lucide-react";
+import { ShoppingCart } from "lucide-react";
 import { Skeleton } from "../ui/skeleton";
 
 const contract = getReadOnlyContract();
@@ -77,10 +77,7 @@ const HomeProductCard: React.FC<HomeProductCardProps> = ({ pid }) => {
           </p>
         </ScrollArea>
         <div className="grid grid-cols-2 gap-2 px-3 mt-1">
-          <Button>
-            <CreditCard />
-            Buy now
-          </Button>
+          <Button>Buy now</Button>
           <Button variant="outline">
             <ShoppingCart />
             Add to cart
