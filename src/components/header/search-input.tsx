@@ -79,7 +79,7 @@ const SearchInput: React.FC = () => {
     <>
       {isMobile ? (
         <Button size="icon" variant="ghost" onClick={() => setOpen(true)}>
-          <Search className="text-muted-foreground" />
+          <Search />
         </Button>
       ) : (
         <Input

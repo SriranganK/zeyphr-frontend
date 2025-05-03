@@ -11,13 +11,17 @@ import { ShoppingCart } from "lucide-react";
 import { Skeleton } from "../../ui/skeleton";
 import { useCart } from "@/context/CartContext";
 import { toast } from "sonner";
+import ToolTip from "@/components/tooltip";
+import { cn } from "@/lib/utils";
 
 const contract = getReadOnlyContract();
 
 const HomeProductCard: React.FC<HomeProductCardProps> = ({ pid }) => {
   const [itemInfo, setItemInfo] = useState<HomePageItem | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
-  const { addItem } = useCart();
+  const { addItem, cartItems } = useCart();
+
+  const alreadyInCart = cartItems.some((item) => item.tokenId === pid);
 
   const handleAddCart = () => {
     if (itemInfo === null) return;
@@ -86,10 +90,22 @@ const HomeProductCard: React.FC<HomeProductCardProps> = ({ pid }) => {
         </ScrollArea>
         <div className="grid grid-cols-2 gap-2 px-3 mt-1">
           <Button>Buy now</Button>
-          <Button variant="outline" onClick={handleAddCart}>
-            <ShoppingCart />
-            Add to cart
-          </Button>
+          <ToolTip
+            content="Item already in cart"
+            hideOnMobile
+            className={cn(!alreadyInCart && "hidden")}
+          >
+            <div>
+              <Button
+                disabled={alreadyInCart}
+                variant="outline"
+                onClick={handleAddCart}
+              >
+                <ShoppingCart />
+                Add to cart
+              </Button>
+            </div>
+          </ToolTip>
         </div>
       </div>
     )

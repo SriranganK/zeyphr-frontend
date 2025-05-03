@@ -7,7 +7,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import ToolTip from "../tooltip";
-import { CreditCard, LogOut, Settings, UserRoundPen,ShoppingCart } from "lucide-react";
+import { CreditCard, LogOut, Settings, UserRoundPen } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Drawer,
@@ -18,10 +18,10 @@ import {
   DrawerTrigger,
 } from "../ui/drawer";
 import { Button } from "../ui/button";
+import HeaderBalance from "./balance";
 
 const AvatarActions: React.FC<AvatarActionsProps> = ({
   setShowLogout,
-  setShowCart,
   publicKey,
 }) => {
   const isMobile = useIsMobile();
@@ -45,10 +45,16 @@ const AvatarActions: React.FC<AvatarActionsProps> = ({
       </ToolTip>
       <Wrapper.Content align="end" className="pb-2 sm:pb-1">
         {isMobile && (
-          <DrawerHeader className="pb-0">
-            <DrawerTitle>Actions</DrawerTitle>
-            <DrawerDescription />
-          </DrawerHeader>
+          <>
+            <DrawerHeader className="pb-0">
+              <DrawerTitle>Actions</DrawerTitle>
+              <DrawerDescription />
+              <div className="flex items-center justify-between">
+                <p>Balance</p>
+                <HeaderBalance />
+              </div>
+            </DrawerHeader>
+          </>
         )}
         <Wrapper.Item
           variant={isMobile ? ("ghost" as "default") : "default"}
@@ -63,14 +69,6 @@ const AvatarActions: React.FC<AvatarActionsProps> = ({
         >
           <CreditCard />
           Manage Card
-        </Wrapper.Item>
-        <Wrapper.Item
-          variant={isMobile ? ("ghost" as "default") : "default"}
-          className="justify-start"
-          onClick={() => setShowCart(true)}
-        >
-          <ShoppingCart />
-          Cart
         </Wrapper.Item>
         <Wrapper.Item
           variant={isMobile ? ("ghost" as "default") : "default"}
@@ -97,5 +95,4 @@ export default AvatarActions;
 interface AvatarActionsProps {
   publicKey: string;
   setShowLogout: React.Dispatch<React.SetStateAction<boolean>>;
-  setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
 }

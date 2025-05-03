@@ -2,7 +2,7 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 import { ethers } from "ethers";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Rocket } from "lucide-react";
 import { useState } from "react";
 
 interface CheckoutProps {
@@ -32,23 +32,29 @@ const Checkout: React.FC<CheckoutProps> = ({
       <SheetContent
         side="right"
         forceMount
-        className="w-[400px] sm:w-[500px] p-0 flex flex-col h-full"
+        className="rounded-l-xl w-80 sm:w-[500px] p-0 flex flex-col h-full"
       >
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b">
-          <button onClick={() => setShowCheckout(false)} className="p-2">
-            <ArrowLeft className="w-5 h-5" />
-          </button>
+          <Button
+            variant="secondary"
+            size="icon"
+            onClick={() => setShowCheckout(false)}
+            className="p-2"
+          >
+            <ArrowLeft />
+          </Button>
           <h2 className="text-lg font-semibold">Checkout</h2>
-          <button
-            className="p-2 text-blue-600 font-medium"
+          <Button
+            variant="ghost"
+            className="text-destructive hover:text-destructive hover:bg-destructive/10"
             onClick={() => {
               setShowCheckout(false);
               setShowCart(false);
             }}
           >
             Cancel
-          </button>
+          </Button>
         </div>
 
         {/* Shipping Address */}
@@ -80,7 +86,7 @@ const Checkout: React.FC<CheckoutProps> = ({
         </div>
 
         {/* Order Details */}
-        <div className="flex-grow overflow-y-auto p-4 space-y-4 border-b">
+        <div className="flex-grow overflow-y-auto p-4 space-y-4">
           <h3 className="text-md font-semibold mb-2">Order Details</h3>
           {cartItems.length === 0 ? (
             <p className="text-center text-gray-500">No items in cart.</p>
@@ -112,21 +118,13 @@ const Checkout: React.FC<CheckoutProps> = ({
         </div>
 
         {/* Order Summary */}
-        <div className="p-4 bg-white space-y-3 border-t">
-          <h3 className="text-md font-semibold">Order Summary</h3>
-          <div className="flex justify-between text-sm">
-            <span>Sub Total</span>
-            <span>{ethers.formatEther(subtotal)} IOTA</span>
-          </div>
-          <div className="flex justify-between text-sm">
-            <span>Delivery</span>
-            <span>{ethers.formatEther(delivery)} IOTA</span>
-          </div>
+        <div className="p-4 space-y-3 border-t">
           <div className="flex justify-between font-semibold text-base">
             <span>Total</span>
             <span>{ethers.formatEther(total)} IOTA</span>
           </div>
-          <Button className="w-full rounded-lg">
+          <Button className="w-full">
+            <Rocket />
             Pay {ethers.formatEther(total)} IOTA
           </Button>
         </div>

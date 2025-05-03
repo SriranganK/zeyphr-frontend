@@ -1,10 +1,11 @@
 import { Sheet, SheetContent } from "@/components/ui/sheet";
-import { ArrowLeft, Trash2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Trash2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useCart } from "@/context/CartContext";
 import { ethers } from "ethers";
 import { useState } from "react";
 import Checkout from "./checkout";
+import ToolTip from "../tooltip";
 
 interface CartProps {
   showCart: boolean;
@@ -12,39 +13,45 @@ interface CartProps {
 }
 
 const Cart: React.FC<CartProps> = ({ showCart, setShowCart }) => {
-    const { cartItems, removeItem, clearCart } = useCart();
+  const { cartItems, removeItem, clearCart } = useCart();
   const [showCheckout, setShowCheckout] = useState(false);
 
-
-const subtotal = cartItems.reduce(
-  (sum, item) => sum + BigInt(item.price ?? "0"),
-  BigInt(0)
-);
-const delivery = subtotal > 0n ? BigInt("5000000000000000000") : BigInt(0); // 5 IOTA
-const total = subtotal + delivery;
+  const total = cartItems.reduce(
+    (sum, item) => sum + BigInt(item.price ?? "0"),
+    BigInt(0)
+  );;
 
   return (
-    <Sheet open={showCart} onOpenChange={setShowCart}>
-      <SheetContent
-        side="right"
-        forceMount
-        className="w-[400px] sm:w-[500px] p-0 flex flex-col h-full"
-      >
-        {showCheckout ? (
-          <>
-            <Checkout {...{ showCheckout, setShowCheckout, setShowCart }} />
-          </>
-        ) : (
-          <>
+    <>
+      {showCheckout ? (
+        <Checkout {...{ showCheckout, setShowCheckout, setShowCart }} />
+      ) : (
+        <Sheet open={showCart} onOpenChange={setShowCart}>
+          <SheetContent
+            side="right"
+            forceMount
+            className="rounded-l-xl w-80 sm:w-[500px] p-0 flex flex-col h-full"
+          >
             {/* Header */}
             <div className="flex items-center justify-between p-4 border-b">
-              <button onClick={() => setShowCart(false)} className="p-2">
-                <ArrowLeft className="w-5 h-5" />
-              </button>
+              <Button
+                variant="secondary"
+                size="icon"
+                onClick={() => setShowCart(false)}
+              >
+                <ArrowLeft />
+              </Button>
               <h2 className="text-lg font-semibold">Your Cart</h2>
-              <button className="p-2" onClick={() => clearCart()}>
-                <Trash2 className="w-5 h-5" />
-              </button>
+              <ToolTip hideOnMobile content="Clear cart">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="hover:bg-destructive/10 [&_svg]:text-destructive"
+                  onClick={() => clearCart()}
+                >
+                  <Trash2 />
+                </Button>
+              </ToolTip>
             </div>
 
             {/* Cart Items */}
@@ -74,44 +81,42 @@ const total = subtotal + delivery;
                     </div>
 
                     {/* Delete Icon */}
-                    <button
-                      className="absolute bottom-2 right-2 p-1"
-                      onClick={() => removeItem(item.tokenId)}
-                    >
-                      <Trash2 className="w-5 h-5" />
-                    </button>
+                    <ToolTip hideOnMobile content="Remove item form cart">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        className="hover:bg-destructive/10 [&_svg]:text-destructive absolute bottom-2 right-2"
+                        onClick={() => removeItem(item.tokenId)}
+                      >
+                        <Trash2 />
+                      </Button>
+                    </ToolTip>
                   </div>
                 ))
               )}
             </div>
 
             {/* Amount Details */}
-            <div className="p-4 border-t bg-white">
+            <div className="p-4 border-t">
               <div className="space-y-2 mb-4">
-                <div className="flex justify-between">
-                  <span>Sub Total</span>
-                  <span> {ethers.formatEther(subtotal.toString())} IOTA</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>Delivery</span>
-                  <span>{ethers.formatEther(delivery.toString())} IOTA</span>
-                </div>
                 <div className="flex justify-between font-semibold">
                   <span>Total</span>
                   <span>{ethers.formatEther(total.toString())} IOTA</span>
                 </div>
               </div>
               <Button
-                className="w-full rounded-lg"
+                className="w-full"
                 onClick={() => setShowCheckout(true)}
+                disabled={!cartItems.length}
               >
                 Checkout
+                <ArrowRight />
               </Button>
             </div>
-          </>
-        )}
-      </SheetContent>
-    </Sheet>
+          </SheetContent>
+        </Sheet>
+      )}
+    </>
   );
 };
 

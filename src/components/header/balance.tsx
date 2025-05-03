@@ -18,8 +18,9 @@ import { Button } from "../ui/button";
 import { toast } from "sonner";
 import { FAUCET_LINK } from "@/data/app";
 import { Label } from "@radix-ui/react-label";
+import { cn, formatCurrency } from "@/lib/utils";
 
-const HeaderBalance: React.FC = () => {
+const HeaderBalance: React.FC<HeaderBalanceProps> = ({hidden}) => {
   const { token } = useAppContext();
   const publicKey = (
     jwtDecode(token) as CustomJwtPayload
@@ -57,14 +58,14 @@ const HeaderBalance: React.FC = () => {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
+      <DialogTrigger asChild className={cn(hidden && "hidden")}>
         <div className="flex items-center gap-1 cursor-pointer hover:opacity-50">
           {balanceFetching ? (
             <ToolTip hideOnMobile content="Fetching balance...">
               <Loader className="size-5 animate-spin text-muted-foreground" />
             </ToolTip>
           ) : (
-            <p className="font-medium">{balance}</p>
+            <p className="font-medium">{formatCurrency(balance)}</p>
           )}
           <p className="text-sm">IOTA</p>
         </div>
@@ -97,11 +98,7 @@ const HeaderBalance: React.FC = () => {
             />
             <ToolTip content="Copy wallet address">
               <Button size="icon" onClick={handleCopy} variant="outline">
-                {copied ? (
-                  <Check />
-                ) : (
-                  <Copy />
-                )}
+                {copied ? <Check /> : <Copy />}
               </Button>
             </ToolTip>
           </div>
@@ -118,3 +115,7 @@ const HeaderBalance: React.FC = () => {
 };
 
 export default HeaderBalance;
+
+interface HeaderBalanceProps {
+  hidden?: boolean;
+}

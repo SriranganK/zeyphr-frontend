@@ -27,6 +27,7 @@ type CartContextType = {
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+// eslint-disable-next-line react-refresh/only-export-components
 export const useCart = () => {
   const context = useContext(CartContext);
   if (!context) throw new Error("useCart must be used within CartProvider");
@@ -51,7 +52,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   // ✅ Save cart to localStorage, converting BigInts to strings
   useEffect(() => {
-    const replacer = (_key: string, value: any) =>
+    const replacer = (_key: string, value: unknown) =>
       typeof value === "bigint" ? value.toString() : value;
 
     try {

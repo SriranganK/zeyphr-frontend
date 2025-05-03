@@ -1,6 +1,7 @@
 import {
   ArrowDownToLine,
   ArrowUpFromLine,
+  FileClock,
   Globe,
   Layers,
   Loader,
@@ -44,7 +45,8 @@ const Transactions: React.FC = () => {
   );
   const debitTxs = txs.filter(
     (tx) =>
-      typeof tx.from !== "string" && tx.from.publicKey.toLowerCase() === publicKey
+      typeof tx.from !== "string" &&
+      tx.from.publicKey.toLowerCase() === publicKey
   );
 
   const fetchUserTransactions = useCallback(async () => {
@@ -77,6 +79,9 @@ const Transactions: React.FC = () => {
       setFetching(false);
     }
   }, [publicKey, token]);
+
+  const txsEmpty = !fetching && !txs.length;
+  const otherTxsEmpty = !fetching && !otherTxs.length;
 
   // fetching all the transactions
   // of ther user
@@ -152,9 +157,18 @@ const Transactions: React.FC = () => {
           innerClassName="p-2"
           className="rounded-xl mr-1 h-60 [&>[data-radix-scroll-area-viewport]]:max-h-60"
         >
+          {txsEmpty && (
+            <div className="h-56 w-full flex flex-col items-center justify-center text-muted-foreground space-y-2">
+              <FileClock className="w-8 h-8 text-muted-foreground" />
+              <p className="text-sm">No transactions yet.</p>
+              <p className="text-xs">
+                Your activity will appear here once you start transacting.
+              </p>
+            </div>
+          )}
           {fetching && <TransactionsSkeleton />}
           {txs.map((tx) => (
-            <TransactionCard key={tx.id} {...{tx, publicKey}} />
+            <TransactionCard key={tx.id} {...{ tx, publicKey }} />
           ))}
         </ScrollArea>
       </TabsContent>
@@ -166,9 +180,18 @@ const Transactions: React.FC = () => {
           innerClassName="p-2"
           className="rounded-xl mr-1 h-60 [&>[data-radix-scroll-area-viewport]]:max-h-60"
         >
+          {txsEmpty && (
+            <div className="h-56 w-full flex flex-col items-center justify-center text-muted-foreground space-y-2">
+              <FileClock className="w-8 h-8 text-muted-foreground" />
+              <p className="text-sm">No transactions yet.</p>
+              <p className="text-xs">
+                Your activity will appear here once you start transacting.
+              </p>
+            </div>
+          )}
           {fetching && <TransactionsSkeleton />}
           {creditTxs.map((tx) => (
-            <TransactionCard key={tx.id} {...{tx, publicKey}}  />
+            <TransactionCard key={tx.id} {...{ tx, publicKey }} />
           ))}
         </ScrollArea>
       </TabsContent>
@@ -180,9 +203,18 @@ const Transactions: React.FC = () => {
           innerClassName="p-2"
           className="rounded-xl mr-1 h-60 [&>[data-radix-scroll-area-viewport]]:max-h-60"
         >
+          {txsEmpty && (
+            <div className="h-56 w-full flex flex-col items-center justify-center text-muted-foreground space-y-2">
+              <FileClock className="w-8 h-8 text-muted-foreground" />
+              <p className="text-sm">No transactions yet.</p>
+              <p className="text-xs">
+                Your activity will appear here once you start transacting.
+              </p>
+            </div>
+          )}
           {fetching && <TransactionsSkeleton />}
           {debitTxs.map((tx) => (
-            <TransactionCard key={tx.id} {...{tx, publicKey}} />
+            <TransactionCard key={tx.id} {...{ tx, publicKey }} />
           ))}
         </ScrollArea>
       </TabsContent>
@@ -194,11 +226,20 @@ const Transactions: React.FC = () => {
           innerClassName="p-2"
           className="rounded-xl mr-1 h-60 [&>[data-radix-scroll-area-viewport]]:max-h-60"
         >
+          {otherTxsEmpty && (
+            <div className="h-56 w-full flex flex-col items-center justify-center text-muted-foreground space-y-2">
+              <FileClock className="w-8 h-8 text-muted-foreground" />
+              <p className="text-sm">No transactions yet.</p>
+              <p className="text-xs">
+                Your activity will appear here once you start transacting.
+              </p>
+            </div>
+          )}
           {fetching && <TransactionsSkeleton />}
           {otherTxs.map((tx) => (
             <ExplorerTransactionCard
               key={tx.txHash}
-              {...{tx, publicKey}}
+              {...{ tx, publicKey }}
               publicKey={publicKey}
             />
           ))}

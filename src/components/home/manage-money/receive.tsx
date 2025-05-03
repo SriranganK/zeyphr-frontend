@@ -24,7 +24,7 @@ const Receive: React.FC = () => {
         />
       ) : (
         <div className="bg-accent text-muted-foreground border border-input rounded text-center size-36 flex items-center justify-center">
-          Kindly enter amount before generating the QR code
+          Add an amount below to generate your QR code!
         </div>
       )}
       <div className="grid w-full max-w-sm items-center gap-1.5">

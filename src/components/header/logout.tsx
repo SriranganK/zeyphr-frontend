@@ -10,12 +10,20 @@ import {
   AlertDialogTitle,
 } from "../ui/alert-dialog";
 import { LogOut } from "lucide-react";
+import { useCart } from "@/context/CartContext";
 
 const LogOutConfirmation: React.FC<LogOutConfirmationProps> = ({
   showLogout,
   setShowLogout,
 }) => {
   const { setToken } = useAppContext();
+  const { clearCart } = useCart();
+
+  const handleLogOut = () => {
+    setToken!("");
+    clearCart();
+  };
+
   return (
     <AlertDialog open={showLogout} onOpenChange={setShowLogout}>
       <AlertDialogContent>
@@ -28,7 +36,7 @@ const LogOutConfirmation: React.FC<LogOutConfirmationProps> = ({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => setToken!("")}>
+          <AlertDialogAction onClick={handleLogOut}>
             Log Out
             <LogOut />
           </AlertDialogAction>

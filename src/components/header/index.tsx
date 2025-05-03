@@ -10,9 +10,16 @@ import AvatarActions from "./actions";
 import HeaderBalance from "./balance";
 import ProfileCard from "./profile";
 import Cart from "./cart";
+import { Button } from "../ui/button";
+import { ShoppingCart } from "lucide-react";
+import ToolTip from "../tooltip";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { useCart } from "@/context/CartContext";
 
 const Header: React.FC = () => {
   const { token } = useAppContext();
+  const { cartItems } = useCart();
+  const isMobile = useIsMobile();
   const publicKey = (
     jwtDecode(token) as CustomJwtPayload
   ).publicKey.toLowerCase();
@@ -38,10 +45,25 @@ const Header: React.FC = () => {
           <div className="sm:hidden">
             <SearchInput />
           </div>
-          <HeaderBalance />
+          <ToolTip hideOnMobile content="View cart">
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => setShowCart(true)}
+              className="relative"
+            >
+              <ShoppingCart />
+              {cartItems.length > 0 && (
+                <span className="absolute -top-1 -right-1 bg-destructive/80 text-white text-[10px] font-semibold size-4 rounded-full flex items-center justify-center">
+                  {cartItems.length}
+                </span>
+              )}
+            </Button>
+          </ToolTip>
+          <HeaderBalance hidden={isMobile} />
           <AvatarActions {...{ publicKey, setShowLogout, setShowCart }} />
         </div>
-      <Cart {...{ showCart, setShowCart }} />
+        <Cart {...{ showCart, setShowCart }} />
       </div>
       <LogOutConfirmation {...{ showLogout, setShowLogout }} />
       <ProfileCard />

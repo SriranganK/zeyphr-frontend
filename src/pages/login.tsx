@@ -109,7 +109,7 @@ const LoginPage: React.FC = () => {
   const handleLoginOrCreate = () => {
     if (loading) return;
 
-    if (password.length <= 6) {
+    if (password.length < 6) {
       toast.error("Password must at least be 6 characters long.");
       return;
     }
@@ -130,7 +130,7 @@ const LoginPage: React.FC = () => {
         return;
       }
       setLoading(true);
-      const registerUserPromise = axios.post<{ token: string }>("/users", {
+      const registerUserPromise = axios.post<{ token: string }>("/users/new", {
         emailAddress: email,
         password,
       });
@@ -194,7 +194,9 @@ const LoginPage: React.FC = () => {
       const checkAccountStatus = async () => {
         setLoading(true);
         try {
-          const { data } = await axios.get(`/users/check-email/${email}`);
+          const { data } = await axios.post(`/users/check-email`, {
+            emailAddress: email,
+          });
           setIsExistingUser(data.existing);
         } finally {
           setLoading(false);
