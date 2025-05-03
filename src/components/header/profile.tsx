@@ -53,11 +53,14 @@ const ProfileCard: React.FC = () => {
   useEffect(() => {
     setOpen(userKey !== null);
     const fetchUser = async () => {
-      if (!userKey) return;
+      if (!userKey || !token) return;
       try {
         setFetching(true);
         const { data } = await axios.get<UserInfo>(
-          `/users/fetch-user?query=${userKey}`
+          `/users/fetch-user?query=${userKey}`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
         );
         if (data.publicKey.toLowerCase() === publicKey) {
           throw "Your profile";
@@ -73,7 +76,7 @@ const ProfileCard: React.FC = () => {
       }
     };
     fetchUser();
-  }, [location.search, navigate, userKey, publicKey]);
+  }, [location.search, navigate, userKey, publicKey, token]);
 
   return (
     <Dialog open={open} onOpenChange={fetching ? undefined : handleClose}>

@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { Rocket, UserRoundSearch } from "lucide-react";
+import { Loader, Rocket, UserRoundSearch } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router";
 import SearchReipient from "./search-recipient";
@@ -47,26 +47,31 @@ const SendMoney: React.FC = () => {
 
   const handleSend = () => {
     if (finalUser === null || sending || !postPwdCb) return;
-    postPwdCb.current = async (password: string) => {
-      try {
-        setSending(true);
-        await axios.post(
-          "/transaction/new",
-          {
-            to: finalUser.publicKey.toLowerCase(),
-            amount,
-            password,
-            paymentMethod: "wallet",
-            currency: "IOTA",
-          },
-          { headers: { Authorization: `Bearer ${token}` } }
-        );
-        toast.success("Transaction successfull!!");
-      } catch {
-        toast.error("Transaction failed. Please try again.");
-      } finally {
-        setSending(false);
-      }
+    postPwdCb.current = (password: string) => {
+      setSending(true);
+      const sendTx = axios.post(
+        "/transaction/new",
+        {
+          to: finalUser.publicKey.toLowerCase(),
+          amount,
+          password,
+          paymentMethod: "wallet",
+          currency: "IOTA",
+        },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
+      toast.promise(sendTx, {
+        loading: `Sending ${amount} IOTA to "${finalUser.username}"`,
+        success: "Transaction successfull!!",
+        error: "Transaction failed. Please try again.",
+      });
+      sendTx
+        .then(() => {
+          setFinalUser(null);
+          setAmount("");
+          setUserKey("");
+        })
+        .finally(() => setSending(false));
     };
     setPwdOpen!(true);
   };
@@ -160,11 +165,11 @@ const SendMoney: React.FC = () => {
         </div>
       </div>
       <div className="flex gap-4 mt-4">
-        <Button variant="secondary" onClick={handleCancel}>
+        <Button disabled={sending} variant="secondary" onClick={handleCancel}>
           Cancel
         </Button>
-        <Button onClick={handleSend}>
-          <Rocket />
+        <Button disabled={sending} onClick={handleSend}>
+          {sending ? <Loader className="animate-spin" /> : <Rocket />}
           Send
         </Button>
       </div>
