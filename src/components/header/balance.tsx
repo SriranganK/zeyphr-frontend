@@ -66,16 +66,16 @@ const HeaderBalance: React.FC = () => {
           ) : (
             <p className="font-medium">{balance}</p>
           )}
-          <p className="text-sm">ETH</p>
+          <p className="text-sm">IOTA</p>
         </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>🚀 Free ETH for Testing</DialogTitle>
+          <DialogTitle>🚀 Free IOTA for Testing</DialogTitle>
           <DialogDescription>
             <br />
             Welcome to our MVP/Beta version! To help you explore the app, you
-            can claim free ETH — courtesy of the IOTA team.
+            can claim free IOTA — courtesy of the IOTA team.
             <br />
             <br />
             Just copy your public address from below and paste it into the

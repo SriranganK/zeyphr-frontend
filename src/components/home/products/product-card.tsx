@@ -65,7 +65,7 @@ const HomeProductCard: React.FC<HomeProductCardProps> = ({ pid }) => {
             {itemInfo.name}
           </p>
           <p className="text-sm font-medium text-muted-foreground">
-            {ethers.formatEther(itemInfo.price ?? "0")} ETH
+            {ethers.formatEther(itemInfo.price ?? "0")} IOTA
           </p>
         </div>
         <ScrollArea

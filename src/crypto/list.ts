@@ -2,7 +2,7 @@ import { ethers } from "ethers";
 import { getContract } from "./contract";
 
 export const listItem = async (tokenId: number) => {
-  const price = prompt("Enter price to list (in ETH):");
+  const price = prompt("Enter price to list (in IOTA):");
   if (!price) return;
 
   try {

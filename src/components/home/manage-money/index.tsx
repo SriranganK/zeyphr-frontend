@@ -70,7 +70,7 @@ const ManageMoney: React.FC = () => {
           <Input
             autoFocus
             underlined
-            placeholder="0.00 ETH"
+            placeholder="0.00 IOTA"
             className="text-center border-b-0 text-5xl sm:text-7xl rounded-t-xl"
             type="number"
           />

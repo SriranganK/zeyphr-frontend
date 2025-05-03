@@ -142,7 +142,7 @@ export const ExplorerTransactionCard: React.FC<
                 }`}
               >
                 {isCredit ? "+" : "-"}
-                {tx.amount} ETH
+                {tx.amount} IOTA
               </div>
               <StatusBadge status="success" />
             </div>

@@ -37,7 +37,7 @@ export type TransactionFromDB = {
     from: "" | Omit<UserInfo, "_id">;
     to: "" | Omit<UserInfo, "_id">;
     amount: number;
-    currency: "ETH";
+    currency: "IOTA";
     paymentMethod: "qr" | "card" | "wallet";
     status: "success" | "failure" | "pending";
     createdAt: string;
