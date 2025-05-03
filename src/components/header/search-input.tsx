@@ -19,6 +19,7 @@ import { useAppContext } from "@/context/app";
 import axios from "axios";
 import { Skeleton } from "../ui/skeleton";
 import { cn } from "@/lib/utils";
+import { useLocation, useNavigate } from "react-router";
 
 const SearchInput: React.FC = () => {
   const isMobile = useIsMobile();
@@ -59,14 +60,14 @@ const SearchInput: React.FC = () => {
           setFetching(false);
         }
       };
-  
+
       fetchUsers();
     }, 280);
-  
+
     return () => {
       clearTimeout(handler);
     };
-  }, [searchInput, token])
+  }, [searchInput, token]);
 
   return (
     <>
@@ -99,12 +100,14 @@ const SearchInput: React.FC = () => {
           innerClassName="h-80"
         >
           <CommandList className={cn(searchInput.length < 3 && "hidden")}>
-            <CommandEmpty>No users found. Try a different search term.</CommandEmpty>
+            <CommandEmpty>
+              No users found. Try a different search term.
+            </CommandEmpty>
           </CommandList>
           {fetching && <SearchResultsSkeleton />}
           {users.map((user) => (
             <CommandItem key={user.publicKey}>
-              <SearchResult user={user} />
+              <SearchResult {...{ user, setOpen }} />
             </CommandItem>
           ))}
         </ScrollArea>
@@ -115,9 +118,20 @@ const SearchInput: React.FC = () => {
 
 export default SearchInput;
 
-const SearchResult: React.FC<SearchResultProps> = ({ user }) => {
+const SearchResult: React.FC<SearchResultProps> = ({ user, setOpen }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleClick = () => {
+    const params = new URLSearchParams(location.search);
+    params.set("profile", user.username);
+    navigate({ search: params.toString() }, { replace: false });
+    setOpen(false);
+  };
+
   return (
     <Button
+      onClick={handleClick}
       variant="ghost"
       className="w-full justify-start gap-4 px-2 py-2"
       aria-label={`Select user ${user.username}`}
@@ -144,6 +158,7 @@ const SearchResult: React.FC<SearchResultProps> = ({ user }) => {
 
 interface SearchResultProps {
   user: SearchResultUser;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SearchResultSkeleton: React.FC = () => {
