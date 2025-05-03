@@ -85,7 +85,7 @@ const SearchInput: React.FC = () => {
         <Input
           startIcon={Search}
           type="search"
-          placeholder="Search by username, public address, email address"
+          placeholder="Search by username, email address"
           className="w-md text-center"
           onClick={() => setOpen(true)}
         />
@@ -98,7 +98,7 @@ const SearchInput: React.FC = () => {
         <CommandInput
           value={searchInput}
           onValueChange={setSearchInput}
-          placeholder="Search by username, public address, email address"
+          placeholder="Search by username, email address"
           autoFocus
         />
         <ScrollArea
@@ -124,11 +124,20 @@ const SearchInput: React.FC = () => {
 
 export default SearchInput;
 
-const SearchResult: React.FC<SearchResultProps> = ({ user, setOpen }) => {
+export const SearchResult: React.FC<SearchResultProps> = ({
+  user,
+  setOpen,
+  fromSendCallback,
+}) => {
   const navigate = useNavigate();
   const location = useLocation();
 
   const handleClick = () => {
+    if (fromSendCallback !== undefined) {
+      fromSendCallback(user);
+      setOpen(false);
+      return;
+    }
     const params = new URLSearchParams(location.search);
     params.set("profile", user.username);
     navigate({ search: params.toString() }, { replace: false });
@@ -150,12 +159,11 @@ const SearchResult: React.FC<SearchResultProps> = ({ user, setOpen }) => {
         <AvatarFallback>{user.username[0]}</AvatarFallback>
       </Avatar>
       <div className="flex flex-col items-start min-w-0">
-        <p className="text-sm font-medium truncate w-full">
-          {user.username}{" "}
-          <span className="text-muted-foreground">({user.emailAddress})</span>
+        <p className="text-start text-sm font-medium truncate w-full">
+          {user.username}
         </p>
         <p className="text-start text-xs text-muted-foreground truncate w-full">
-          {user.publicKey}
+          {user.emailAddress}
         </p>
       </div>
     </Button>
@@ -165,6 +173,9 @@ const SearchResult: React.FC<SearchResultProps> = ({ user, setOpen }) => {
 interface SearchResultProps {
   user: SearchResultUser;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  fromSendCallback?: React.Dispatch<
+    React.SetStateAction<SearchResultUser | null>
+  >;
 }
 
 const SearchResultSkeleton: React.FC = () => {
@@ -179,7 +190,7 @@ const SearchResultSkeleton: React.FC = () => {
   );
 };
 
-const SearchResultsSkeleton: React.FC = () => (
+export const SearchResultsSkeleton: React.FC = () => (
   <>
     <CommandItem>
       <SearchResultSkeleton />

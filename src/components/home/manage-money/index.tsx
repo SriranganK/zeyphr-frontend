@@ -60,7 +60,7 @@ const ManageMoney: React.FC = () => {
       </div>
       <TabsContent
         value="send"
-        className="p-2 sm:p-0 flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-4"
+        className="p-2 sm:p-0 flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-2"
       >
         <SendMoney />
       </TabsContent>

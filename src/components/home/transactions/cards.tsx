@@ -16,7 +16,8 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
   tx,
   publicKey,
 }) => {
-  const isCredit = typeof tx.to !== "string" && tx.to.publicKey.toLowerCase() === publicKey;
+  const isCredit =
+    typeof tx.to !== "string" && tx.to.publicKey.toLowerCase() === publicKey;
   const otherPerson = (isCredit ? tx.from : tx.to) as Omit<UserInfo, "_id">;
 
   return (
@@ -42,10 +43,7 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
                   {otherPerson.emailAddress}
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  <ToolTip content={otherPerson.publicKey} hideOnMobile>
-                    <span>{truncateAddress(otherPerson.publicKey)}</span>
-                  </ToolTip>{" "}
-                  • {format(new Date(tx.createdAt), "MMM d, yyyy 'at' h:mm a")}
+                  {format(new Date(tx.createdAt), "MMM d, yyyy 'at' h:mm a")}
                 </div>
               </div>
             </div>
@@ -131,7 +129,10 @@ export const ExplorerTransactionCard: React.FC<
                   </ToolTip>
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  {format(new Date((+tx.timestamp) * 1000), "MMM d, yyyy 'at' h:mm a")}
+                  {format(
+                    new Date(+tx.timestamp * 1000),
+                    "MMM d, yyyy 'at' h:mm a"
+                  )}
                 </div>
               </div>
             </div>
