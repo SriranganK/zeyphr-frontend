@@ -58,7 +58,7 @@ const SearchReipient: React.FC<SearchReipientProps> = ({
             `/users/search?query=${searchInput}`,
             {
               headers: {
-                Authorization: `Beared ${token}`,
+                Authorization: `Bearer ${token}`,
               },
             }
           );

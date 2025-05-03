@@ -1,7 +1,5 @@
 export type CustomJwtPayload = {
-    privateKey: string;
     publicKey: string;
-    _id: string;
 };
 
 export type UserInfo = {

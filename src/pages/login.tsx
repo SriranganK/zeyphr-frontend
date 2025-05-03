@@ -48,7 +48,7 @@ const LoginPage: React.FC = () => {
 
   const sendVerificationCode = () => {
     if (!isEmailValid || loading || step !== 0) {
-      toast.error("Email address format is invalid");
+      toast.error("Email format is invalid");
       return;
     }
     setLoading(true);

@@ -55,7 +55,7 @@ const SearchInput: React.FC = () => {
             `/users/search?query=${searchInput}`,
             {
               headers: {
-                Authorization: `Beared ${token}`,
+                Authorization: `Bearer ${token}`,
               },
             }
           );
@@ -85,7 +85,7 @@ const SearchInput: React.FC = () => {
         <Input
           startIcon={Search}
           type="search"
-          placeholder="Search by username, email address"
+          placeholder="Search by username, email"
           className="w-md text-center"
           onClick={() => setOpen(true)}
         />
@@ -98,7 +98,7 @@ const SearchInput: React.FC = () => {
         <CommandInput
           value={searchInput}
           onValueChange={setSearchInput}
-          placeholder="Search by username, email address"
+          placeholder="Search by username, email"
           autoFocus
         />
         <ScrollArea

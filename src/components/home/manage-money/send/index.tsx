@@ -11,9 +11,12 @@ import { toast } from "sonner";
 import { SearchResultUser } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DICEBEAR_API } from "@/data/app";
+import { useAppContext } from "@/context/app";
+import axios from "axios";
 
 const SendMoney: React.FC = () => {
   const location = useLocation();
+  const { postPwdCb, token, setPwdOpen } = useAppContext();
   const [amount, setAmount] = useState<string>("");
   const [userKey, setUserKey] = useState<string>("");
   const [open, setOpen] = useState(false);
@@ -24,6 +27,7 @@ const SendMoney: React.FC = () => {
   const userKeyRef = useRef<HTMLInputElement>(null);
   const searchParams = new URLSearchParams(location.search);
   const recipientKey = searchParams.get("recipient");
+  const [sending, setSending] = useState<boolean>(false);
 
   const onSearchClick = () => {
     if (userKey.length < 3) {
@@ -39,6 +43,32 @@ const SendMoney: React.FC = () => {
     setUserKey(finalUser.username);
     setSearchInput(finalUser.username);
     setFinalUser(null);
+  };
+
+  const handleSend = () => {
+    if (finalUser === null || sending || !postPwdCb) return;
+    postPwdCb.current = async (password: string) => {
+      try {
+        setSending(true);
+        await axios.post(
+          "/transaction/new",
+          {
+            to: finalUser.publicKey.toLowerCase(),
+            amount,
+            password,
+            paymentMethod: "wallet",
+            currency: "IOTA",
+          },
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
+        toast.success("Transaction successfull!!");
+      } catch {
+        toast.error("Transaction failed. Please try again.");
+      } finally {
+        setSending(false);
+      }
+    };
+    setPwdOpen!(true);
   };
 
   useEffect(() => {
@@ -133,7 +163,7 @@ const SendMoney: React.FC = () => {
         <Button variant="secondary" onClick={handleCancel}>
           Cancel
         </Button>
-        <Button>
+        <Button onClick={handleSend}>
           <Rocket />
           Send
         </Button>
