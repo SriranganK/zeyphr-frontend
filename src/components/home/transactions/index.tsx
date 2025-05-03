@@ -21,7 +21,11 @@ import { ScrollArea } from "../../ui/scroll-area";
 import { toast } from "sonner";
 import axios from "axios";
 import { ethers } from "ethers";
-import { ExplorerTransactionCard, TransactionCard, TransactionsSkeleton } from "./cards";
+import {
+  ExplorerTransactionCard,
+  TransactionCard,
+  TransactionsSkeleton,
+} from "./cards";
 import { Button } from "@/components/ui/button";
 import ToolTip from "@/components/tooltip";
 
@@ -75,15 +79,15 @@ const Transactions: React.FC = () => {
   }, [fetchUserTransactions]);
 
   return (
-    <Tabs className="p-4 px-1" defaultValue="all">
-      <div className="w-full flex items-center justify-between">
+    <Tabs className="p-4 px-1 pt-0 sm:pt-4" defaultValue="all">
+      <div className="w-full flex flex-col sm:flex-row items-center justify-between">
         <div>
           <p className="text-xl font-semibold">Transactions</p>
           <p className="text-sm text-muted-foreground">
             Explore your transactions recorded in Zeyphr and other sources.
           </p>
         </div>
-        <div className="flex items-end gap-0.5">
+        <div className="flex w-full sm:w-fit justify-between items-end gap-0.5">
           <ToolTip content="Refresh transactions">
             <Button
               size="icon"

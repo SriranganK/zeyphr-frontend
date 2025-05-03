@@ -13,13 +13,13 @@ const HomePage: React.FC = () => {
   }
 
   return (
-    <div className="w-screen h-screen flex flex-col p-3 gap-4">
+    <div className="w-screen h-screen flex flex-col p-3 overflow-y-auto gap-4 sm:gap-0">
       <Header />
-      <div className="grid grid-cols-2 w-full h-full gap-4">
+      <div className="flex flex-col sm:grid sm:grid-cols-2 w-full h-full sm:gap-4 sm:gap-y-2">
         <ManageMoney />
         <Transactions />
+        <Products />
       </div>
-      <Products />
     </div>
   );
 };

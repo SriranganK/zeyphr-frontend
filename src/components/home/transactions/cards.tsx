@@ -16,7 +16,7 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
   const otherPersonId = isCredit ? tx.from : tx.to;
 
   return (
-    <ToolTip content="View transaction in explorer">
+    <ToolTip content="View transaction in explorer" hideOnMobile>
       <div className="hover:bg-accent rounded-xl px-3 py-1 mr-1.5">
         <a
           href={`${EXPLORER_URL}/tx/${tx.txHash}`}
@@ -38,7 +38,7 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
                   surajvijay67@gmail.com
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  <ToolTip content={otherPersonId}>
+                  <ToolTip content={otherPersonId} hideOnMobile>
                     <span>{truncateAddress(otherPersonId)}</span>
                   </ToolTip>{" "}
                   • {format(new Date(tx.createdAt), "MMM d, yyyy 'at' h:mm a")}
@@ -104,7 +104,7 @@ export const ExplorerTransactionCard: React.FC<
   const otherPersonId = isCredit ? tx.from : tx.to;
 
   return (
-    <ToolTip content="View transaction in explorer">
+    <ToolTip content="View transaction in explorer" hideOnMobile>
       <div className="hover:bg-accent rounded-xl px-3 py-1 mr-1.5">
         <a
           href={`${EXPLORER_URL}/tx/${tx.txHash}`}
@@ -122,7 +122,7 @@ export const ExplorerTransactionCard: React.FC<
                   {isCredit ? "Received" : "Sent"}{" "}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  <ToolTip content={otherPersonId}>
+                  <ToolTip content={otherPersonId} hideOnMobile>
                     <span>{truncateAddress(otherPersonId, true)}</span>
                   </ToolTip>
                 </div>

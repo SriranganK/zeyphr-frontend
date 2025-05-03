@@ -15,8 +15,8 @@ import {
 
 const ManageMoney: React.FC = () => {
   return (
-    <Tabs className="p-4 px-1" defaultValue="send">
-      <div className="w-full flex items-center justify-between">
+    <Tabs className="p-4 px-1 pt-0 sm:pt-4" defaultValue="send">
+      <div className="w-full flex items-center justify-between gap-1 sm:gap-0">
         <div>
           <p className="text-xl font-semibold">Your Crypto Toolkit</p>
           <p className="text-sm text-muted-foreground">
@@ -63,15 +63,15 @@ const ManageMoney: React.FC = () => {
       </div>
       <TabsContent
         value="send"
-        className="flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-4"
+        className="p-2 sm:p-0 flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-4"
       >
         {/* amount */}
         <div className="flex flex-col items-center">
           <Input
             autoFocus
             underlined
-            placeholder="0.00"
-            className="text-center border-b-0 text-7xl"
+            placeholder="0.00 ETH"
+            className="text-center border-b-0 text-5xl sm:text-7xl rounded-t-xl"
             type="number"
           />
           <p className="font-light">ETH</p>

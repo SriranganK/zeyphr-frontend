@@ -27,13 +27,13 @@ const Products: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col px-2">
+    <div className="col-span-2 flex flex-col px-2">
       <p className="self-center text-center text-xl font-semibold capitalize">
         Recently listed products
       </p>
       <ScrollArea
         type="auto"
-        className="[&>[data-radix-scroll-area-viewport]]:py-4 [&>[data-radix-scroll-area-viewport]]:max-h-80"
+        className="[&>[data-radix-scroll-area-viewport]]:h-80 [&>[data-radix-scroll-area-viewport]]:pt-4 [&>[data-radix-scroll-area-viewport]]:max-h-80"
       >
         <div className="flex flex-wrap gap-4 sm:gap-8 justify-center">
           {fetching &&

@@ -70,7 +70,7 @@ const HomeProductCard: React.FC<HomeProductCardProps> = ({ pid }) => {
         </div>
         <ScrollArea
           type="auto"
-          className="px-3 mr-1 min-h-12 [&>[data-radix-scroll-area-viewport]]:max-h-12 mt-1"
+          className="px-3 mr-1 min-h-14 [&>[data-radix-scroll-area-viewport]]:max-h-14 mt-1"
         >
           <p className="text-xs text-muted-foreground text-justify leading-snug">
             {itemInfo.description}
