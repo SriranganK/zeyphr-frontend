@@ -75,7 +75,7 @@ const Transactions: React.FC = () => {
   }, [fetchUserTransactions]);
 
   return (
-    <Tabs className="p-4" defaultValue="all">
+    <Tabs className="p-4 px-1" defaultValue="all">
       <div className="w-full flex items-center justify-between">
         <div>
           <p className="text-xl font-semibold">Transactions</p>
@@ -98,7 +98,7 @@ const Transactions: React.FC = () => {
               )}
             </Button>
           </ToolTip>
-          <TabsList className="h-auto p-1">
+          <TabsList className="h-auto p-1 flex flex-wrap">
             <TabsTrigger
               value="all"
               disabled={fetching}

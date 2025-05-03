@@ -5,8 +5,8 @@ export type CustomJwtPayload = {
 };
 
 export type SearchResultUser = {
-    _id: string;
     username: string;
+    emailAddress: string;
     publicKey: string;
 };
 

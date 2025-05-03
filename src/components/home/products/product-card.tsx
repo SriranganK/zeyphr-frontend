@@ -5,11 +5,11 @@ import axios from "axios";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { ScrollArea } from "../ui/scroll-area";
-import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
+import { ScrollArea } from "../../ui/scroll-area";
+import { Badge } from "../../ui/badge";
+import { Button } from "../../ui/button";
 import { ShoppingCart } from "lucide-react";
-import { Skeleton } from "../ui/skeleton";
+import { Skeleton } from "../../ui/skeleton";
 
 const contract = getReadOnlyContract();
 
@@ -43,7 +43,7 @@ const HomeProductCard: React.FC<HomeProductCardProps> = ({ pid }) => {
   }, [pid]);
 
   if (fetching) {
-    return <Skeleton className="w-80 sm:w-64 h-72 rounded-xl" />;
+    return <Skeleton className="w-80 sm:w-64 h-[17rem] rounded-xl" />;
   }
 
   return (

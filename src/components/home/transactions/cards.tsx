@@ -38,8 +38,10 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
                   surajvijay67@gmail.com
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  {truncateAddress(otherPersonId)} •{" "}
-                  {format(new Date(tx.createdAt), "MMM d, yyyy 'at' h:mm a")}
+                  <ToolTip content={otherPersonId}>
+                    <span>{truncateAddress(otherPersonId)}</span>
+                  </ToolTip>{" "}
+                  • {format(new Date(tx.createdAt), "MMM d, yyyy 'at' h:mm a")}
                 </div>
               </div>
             </div>
@@ -120,7 +122,9 @@ export const ExplorerTransactionCard: React.FC<
                   {isCredit ? "Received" : "Sent"}{" "}
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  {truncateAddress(otherPersonId, true)}
+                  <ToolTip content={otherPersonId}>
+                    <span>{truncateAddress(otherPersonId, true)}</span>
+                  </ToolTip>
                 </div>
                 <div className="text-xs text-muted-foreground">
                   {format(new Date(+tx.timestamp), "MMM d, yyyy 'at' h:mm a")}
