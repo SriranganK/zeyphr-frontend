@@ -40,3 +40,33 @@ export type TransactionFromDB = {
     createdAt: string;
     updatedAt: string;
 };
+
+export type ExplorerTx = {
+    blockHash: string;
+    blockNumber: string;
+    confirmations: string;
+    contractAddress: string;
+    cumulativeGasUsed: string;
+    from: string;
+    gas: string;
+    gasPrice: string;
+    gasUsed: string;
+    hash: string;
+    input: string;
+    isError: string;
+    nonce: string;
+    timeStamp: string;
+    to: string;
+    transactionIndex: string;
+    txreceipt_status: string;
+    value: string;
+};
+
+
+export type TransactionFromExplorer = {
+    txHash: string;
+    from: string;
+    to: string;
+    amount: string;
+    timestamp: string;
+};

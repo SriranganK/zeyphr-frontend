@@ -11,7 +11,9 @@ import HeaderBalance from "./balance";
 
 const Header: React.FC = () => {
   const { token } = useAppContext();
-  const { publicKey } = jwtDecode(token) as CustomJwtPayload;
+  const publicKey = (
+    jwtDecode(token) as CustomJwtPayload
+  ).publicKey.toLowerCase();
   const [showLogout, setShowLogout] = useState<boolean>(false);
 
   return (

@@ -21,7 +21,9 @@ import { Label } from "@radix-ui/react-label";
 
 const HeaderBalance: React.FC = () => {
   const { token } = useAppContext();
-  const { publicKey } = jwtDecode(token) as CustomJwtPayload;
+  const publicKey = (
+    jwtDecode(token) as CustomJwtPayload
+  ).publicKey.toLowerCase();
   const [balance, setBalance] = useState<string>("--");
   const [balanceFetching, setBalanceFetching] = useState<boolean>(false);
   const [copied, setCopied] = useState(false);

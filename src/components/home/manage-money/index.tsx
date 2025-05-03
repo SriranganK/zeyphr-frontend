@@ -17,23 +17,23 @@ const ManageMoney: React.FC = () => {
   return (
     <Tabs className="p-4" defaultValue="send">
       <TabsList className="self-center h-auto p-1">
-        <TabsTrigger value="send" className="flex flex-col gap-0.5 px-4">
+        <TabsTrigger value="send" className="flex flex-col gap-0.5 px-4 py-1.5">
           <ArrowUpRight />
           Send
         </TabsTrigger>
-        <TabsTrigger value="receive" className="flex flex-col gap-0.5 px-4">
+        <TabsTrigger value="receive" className="flex flex-col gap-0.5 px-4 py-1.5">
           <ArrowDownLeft />
           Receive
         </TabsTrigger>
-        <TabsTrigger value="scan-pay" className="flex flex-col gap-0.5 px-4">
+        <TabsTrigger value="scan-pay" className="flex flex-col gap-0.5 px-4 py-1.5">
           <ScanLine />
           Scan & Pay
         </TabsTrigger>
-        <TabsTrigger value="withdraw" className="flex flex-col gap-0.5 px-4">
+        <TabsTrigger value="withdraw" className="flex flex-col gap-0.5 px-4 py-1.5">
           <BanknoteArrowDown />
           Withdraw
         </TabsTrigger>
-        <TabsTrigger value="deposit" className="flex flex-col gap-0.5 px-4">
+        <TabsTrigger value="deposit" className="flex flex-col gap-0.5 px-4 py-1.5">
           <BanknoteArrowUp />
           Deposit
         </TabsTrigger>

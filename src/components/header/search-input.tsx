@@ -58,7 +58,7 @@ const SearchInput: React.FC = () => {
         <Input
           startIcon={Search}
           type="search"
-          placeholder="Search by address, usernames"
+          placeholder="Search by username, public address, email address"
           className="w-md text-center"
           onClick={() => setOpen(true)}
         />
@@ -71,7 +71,7 @@ const SearchInput: React.FC = () => {
         <CommandInput
           value={searchInput}
           onValueChange={setSearchInput}
-          placeholder="Search by address, usernames"
+          placeholder="Search by username, public address, email address"
           autoFocus
         />
         <ScrollArea

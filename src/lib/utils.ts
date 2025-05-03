@@ -13,7 +13,7 @@ export const isValidEmail = (email: string): boolean => {
 export const sleep = (durationMs: number) => 
   new Promise((resolve) => setTimeout(resolve, durationMs));
 
-export function truncateAddress(address: string) {
+export function truncateAddress(address: string, showMore?: boolean) {
   if (!address) return ""
-  return `${address.slice(0, 6)}...${address.slice(-4)}`
+  return `${address.slice(0, !showMore ? 6 : 12)}...${address.slice(!showMore ? -4 : -7)}`
 }
