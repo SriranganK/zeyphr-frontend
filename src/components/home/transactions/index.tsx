@@ -85,7 +85,7 @@ const Transactions: React.FC = () => {
   }, [fetchUserTransactions]);
 
   return (
-    <Tabs className="p-4 px-1 pt-0 sm:pt-4" defaultValue="all">
+    <Tabs className="p-4 px-1 pt-0 sm:pt-4 gap-3" defaultValue="all">
       <div className="w-full flex flex-col sm:flex-row items-center justify-between">
         <div>
           <p className="text-xl font-semibold">Transactions</p>

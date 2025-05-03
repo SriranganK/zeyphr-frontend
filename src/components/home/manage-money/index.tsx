@@ -12,7 +12,7 @@ import SendMoney from "./send";
 
 const ManageMoney: React.FC = () => {
   return (
-    <Tabs className="p-4 px-1 pt-0 sm:pt-4" defaultValue="send">
+    <Tabs className="p-4 px-1 pt-0 sm:pt-4 gap-3" defaultValue="send">
       <div className="w-full flex items-center justify-between gap-1 sm:gap-0">
         <div>
           <p className="text-xl font-semibold">Your Crypto Toolkit</p>
@@ -60,7 +60,7 @@ const ManageMoney: React.FC = () => {
       </div>
       <TabsContent
         value="send"
-        className="p-2 sm:p-0 flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-4"
+        className="p-2 sm:p-0 flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-2"
       >
         <SendMoney />
       </TabsContent>

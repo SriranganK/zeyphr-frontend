@@ -43,11 +43,11 @@ const HeaderBalance: React.FC = () => {
       .writeText(publicKey)
       .then(() => {
         setCopied(true);
-        toast.success("Your public address has been copied to clipboard.");
+        toast.success("Your wallet address has been copied to clipboard.");
         setTimeout(() => setCopied(false), 2000);
       })
       .catch(() =>
-        toast.error("Failed to copy public address. Please try again.")
+        toast.error("Failed to copy wallets address. Please try again.")
       );
   };
 
@@ -78,14 +78,14 @@ const HeaderBalance: React.FC = () => {
             can claim free IOTA — courtesy of the IOTA team.
             <br />
             <br />
-            Just copy your public address from below and paste it into the
+            Just copy your wallet address from below and paste it into the
             faucet. No wallet funding needed! ✅ Jump in and start testing right
             away.
           </DialogDescription>
         </DialogHeader>
         <div className="grid w-full items-center gap-1.5">
           <Label htmlFor="public-key" className="text-muted-foreground">
-            Your Public Address
+            Your wallet Address
           </Label>
           <div className="flex items-center gap-2">
             <Input
@@ -95,7 +95,7 @@ const HeaderBalance: React.FC = () => {
               startIcon={BookKey}
               defaultValue={publicKey}
             />
-            <ToolTip content="Copy public address">
+            <ToolTip content="Copy wallet address">
               <Button size="icon" onClick={handleCopy} variant="outline">
                 {copied ? (
                   <Check />
