@@ -32,7 +32,7 @@ const total = subtotal + delivery;
       >
         {showCheckout ? (
           <>
-            <Checkout {...{ showCheckout, setShowCheckout }} />
+            <Checkout {...{ showCheckout, setShowCheckout, setShowCart }} />
           </>
         ) : (
           <>
@@ -102,7 +102,7 @@ const total = subtotal + delivery;
                 </div>
               </div>
               <Button
-                className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+                className="w-full rounded-lg"
                 onClick={() => setShowCheckout(true)}
               >
                 Checkout

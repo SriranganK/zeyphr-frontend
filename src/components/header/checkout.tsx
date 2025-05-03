@@ -8,11 +8,13 @@ import { useState } from "react";
 interface CheckoutProps {
   showCheckout: boolean;
   setShowCheckout: (open: boolean) => void;
+  setShowCart: (open: boolean) => void;
 }
 
 const Checkout: React.FC<CheckoutProps> = ({
   showCheckout,
   setShowCheckout,
+  setShowCart,
 }) => {
   const { cartItems } = useCart();
   const [isEditingAddress, setIsEditingAddress] = useState(false);
@@ -40,7 +42,10 @@ const Checkout: React.FC<CheckoutProps> = ({
           <h2 className="text-lg font-semibold">Checkout</h2>
           <button
             className="p-2 text-blue-600 font-medium"
-            onClick={() => setShowCheckout(false)}
+            onClick={() => {
+              setShowCheckout(false);
+              setShowCart(false);
+            }}
           >
             Cancel
           </button>
@@ -49,7 +54,7 @@ const Checkout: React.FC<CheckoutProps> = ({
         {/* Shipping Address */}
         <div className="p-4 border-b flex items-start justify-between">
           <div className="w-full">
-            <h3 className="text-lg font-semibold mb-1">Shipping Address</h3>
+            <h3 className="text-lg font-semibold mb-1">Billing Address</h3>
             {isEditingAddress ? (
               <input
                 type="text"
@@ -121,8 +126,7 @@ const Checkout: React.FC<CheckoutProps> = ({
             <span>Total</span>
             <span>{ethers.formatEther(total)} IOTA</span>
           </div>
-
-          <Button className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition mt-4">
+          <Button className="w-full rounded-lg">
             Pay {ethers.formatEther(total)} IOTA
           </Button>
         </div>
