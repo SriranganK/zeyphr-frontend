@@ -98,9 +98,9 @@ const HeaderBalance: React.FC = () => {
             <ToolTip content="Copy public address">
               <Button size="icon" onClick={handleCopy} variant="outline">
                 {copied ? (
-                  <Check className="text-primary" />
+                  <Check />
                 ) : (
-                  <Copy className="text-primary" />
+                  <Copy />
                 )}
               </Button>
             </ToolTip>
