@@ -1,4 +1,4 @@
-import { Loader, Send } from "lucide-react";
+import { BookKey, Check, Copy, Loader, Send } from "lucide-react";
 import ToolTip from "../tooltip";
 import { useCallback, useEffect, useState } from "react";
 import { getWalletBalance } from "@/crypto/balance";
@@ -15,13 +15,16 @@ import {
 } from "../ui/dialog";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
+import { toast } from "sonner";
 import { FAUCET_LINK } from "@/data/app";
+import { Label } from "@radix-ui/react-label";
 
 const HeaderBalance: React.FC = () => {
   const { token } = useAppContext();
   const { publicKey } = jwtDecode(token) as CustomJwtPayload;
   const [balance, setBalance] = useState<string>("--");
   const [balanceFetching, setBalanceFetching] = useState<boolean>(false);
+  const [copied, setCopied] = useState(false);
 
   const fetchBalance = useCallback(async () => {
     if (!publicKey) return;
@@ -32,6 +35,19 @@ const HeaderBalance: React.FC = () => {
       setBalanceFetching(false);
     }
   }, [publicKey]);
+
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText(publicKey)
+      .then(() => {
+        setCopied(true);
+        toast.success("Your public address has been copied to clipboard.");
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() =>
+        toast.error("Failed to copy public address. Please try again.")
+      );
+  };
 
   useEffect(() => {
     fetchBalance();
@@ -53,22 +69,47 @@ const HeaderBalance: React.FC = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>💧 Free ETH for Testing</DialogTitle>
+          <DialogTitle>🚀 Free ETH for Testing</DialogTitle>
           <DialogDescription>
-            Since this is an MVP/beta version, you can get free ETH to try out
-            the app. Just use our faucet link below—no wallet funding needed!
+            <br />
+            Welcome to our MVP/Beta version! To help you explore the app, you
+            can claim free ETH — courtesy of the IOTA team.
+            <br />
+            <br />
+            Just copy your public address from below and paste it into the
+            faucet. No wallet funding needed! ✅ Jump in and start testing right
+            away.
           </DialogDescription>
         </DialogHeader>
-        <div className="flex items-center gap-2">
-          <Input readOnly defaultValue={FAUCET_LINK} />
-          <ToolTip content="Go to Faucet">
-            <Button size="icon" asChild>
-              <a href={FAUCET_LINK} target="_blank" rel="noopener noreferrer">
-                <Send />
-              </a>
-            </Button>
-          </ToolTip>
+        <div className="grid w-full items-center gap-1.5">
+          <Label htmlFor="public-key" className="text-muted-foreground">
+            Your Public Address
+          </Label>
+          <div className="flex items-center gap-2">
+            <Input
+              id="public-key"
+              name="public-key"
+              readOnly
+              startIcon={BookKey}
+              defaultValue={publicKey}
+            />
+            <ToolTip content="Copy public address">
+              <Button size="icon" onClick={handleCopy} variant="outline">
+                {copied ? (
+                  <Check className="text-primary" />
+                ) : (
+                  <Copy className="text-primary" />
+                )}
+              </Button>
+            </ToolTip>
+          </div>
         </div>
+        <Button asChild>
+          <a href={FAUCET_LINK} target="_blank" rel="noopener noreferrer">
+            <Send />
+            Go to Faucet
+          </a>
+        </Button>
       </DialogContent>
     </Dialog>
   );

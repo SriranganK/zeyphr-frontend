@@ -27,3 +27,16 @@ export type ItemMetaData = {
     description: string;
     image: string;
 };
+
+export type TransactionFromDB = {
+    id: string;
+    txHash: string;
+    from: string;
+    to: string;
+    amount: number;
+    currency: "ETH";
+    paymentMethod: "qr" | "card" | "wallet";
+    status: "success" | "failure" | "pending";
+    createdAt: string;
+    updatedAt: string;
+};

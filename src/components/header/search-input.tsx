@@ -16,9 +16,12 @@ import { SearchResultUser } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DICEBEAR_API } from "@/data/app";
 import { Link } from "react-router";
+// import { useAppContext } from "@/context/app";
+// import axios from "axios";
 
 const SearchInput: React.FC = () => {
   const isMobile = useIsMobile();
+  // const {token} = useAppContext();
   const [open, setOpen] = useState(false);
   const [searchInput, setSearchInput] = useState<string>("");
 
@@ -27,6 +30,23 @@ const SearchInput: React.FC = () => {
       setSearchInput("");
     }
   }, [open]);
+
+  // useEffect(() => {
+  //   const fetchUsers = async () => {
+  //     if (!token) return;
+  //     try {
+  //       const {data} = await axios.get("/users/search?query=suraj", {
+  //         headers: {
+  //           Authorization: `Beared ${token}`,
+  //         }
+  //       });
+  //       console.log({ data });
+  //     } catch (err) {
+  //       console.log({ err });
+  //     }
+  //   };
+  //   fetchUsers();
+  // }, [token]);
 
   return (
     <>
