@@ -4,18 +4,26 @@ import { HomePageItem, ItemMetaData } from "@/lib/types";
 import axios from "axios";
 import { ethers } from "ethers";
 import { useEffect, useState } from "react";
-import { toast } from "sonner";
 import { ScrollArea } from "../../ui/scroll-area";
 import { Badge } from "../../ui/badge";
 import { Button } from "../../ui/button";
 import { ShoppingCart } from "lucide-react";
 import { Skeleton } from "../../ui/skeleton";
+import { useCart } from "@/context/CartContext";
+import { toast } from "sonner";
 
 const contract = getReadOnlyContract();
 
 const HomeProductCard: React.FC<HomeProductCardProps> = ({ pid }) => {
   const [itemInfo, setItemInfo] = useState<HomePageItem | null>(null);
   const [fetching, setFetching] = useState<boolean>(false);
+  const { addItem } = useCart();
+
+  const handleAddCart = () => {
+    if (itemInfo === null) return;
+    addItem(itemInfo);
+    toast.success("Added to cart");
+  };
 
   useEffect(() => {
     const fetchItem = async () => {
@@ -78,7 +86,7 @@ const HomeProductCard: React.FC<HomeProductCardProps> = ({ pid }) => {
         </ScrollArea>
         <div className="grid grid-cols-2 gap-2 px-3 mt-1">
           <Button>Buy now</Button>
-          <Button variant="outline">
+          <Button variant="outline" onClick={handleAddCart}>
             <ShoppingCart />
             Add to cart
           </Button>

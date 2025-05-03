@@ -109,7 +109,7 @@ const LoginPage: React.FC = () => {
   const handleLoginOrCreate = () => {
     if (loading) return;
 
-    if (password.length !== 6) {
+    if (password.length <= 6) {
       toast.error("Password must at least be 6 characters long.");
       return;
     }

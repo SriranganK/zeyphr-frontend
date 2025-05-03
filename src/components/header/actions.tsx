@@ -7,7 +7,7 @@ import {
 } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import ToolTip from "../tooltip";
-import { CreditCard, LogOut, Settings, UserRoundPen } from "lucide-react";
+import { CreditCard, LogOut, Settings, UserRoundPen,ShoppingCart } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import {
   Drawer,
@@ -21,6 +21,7 @@ import { Button } from "../ui/button";
 
 const AvatarActions: React.FC<AvatarActionsProps> = ({
   setShowLogout,
+  setShowCart,
   publicKey,
 }) => {
   const isMobile = useIsMobile();
@@ -66,6 +67,14 @@ const AvatarActions: React.FC<AvatarActionsProps> = ({
         <Wrapper.Item
           variant={isMobile ? ("ghost" as "default") : "default"}
           className="justify-start"
+          onClick={() => setShowCart(true)}
+        >
+          <ShoppingCart />
+          Cart
+        </Wrapper.Item>
+        <Wrapper.Item
+          variant={isMobile ? ("ghost" as "default") : "default"}
+          className="justify-start"
         >
           <Settings />
           Settings
@@ -88,4 +97,5 @@ export default AvatarActions;
 interface AvatarActionsProps {
   publicKey: string;
   setShowLogout: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowCart: React.Dispatch<React.SetStateAction<boolean>>;
 }
