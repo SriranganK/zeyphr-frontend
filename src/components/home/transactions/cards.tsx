@@ -22,13 +22,13 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
 
   return (
     <ToolTip content="View transaction in explorer" hideOnMobile>
-      <div className="hover:bg-accent rounded-xl px-3 py-1 mr-1.5">
+      <div className="hover:bg-accent rounded-xl px-1 sm:px-3 py-1 mr-1.5">
         <a
           href={`${EXPLORER_URL}/tx/${tx.txHash}`}
           target="_blank"
           rel="noopener noreferrer"
         >
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-1">
             <div className="flex items-center gap-4">
               <Avatar className="size-10">
                 <AvatarImage src={`${DICEBEAR_API}=${otherPerson.publicKey}`} />
@@ -39,9 +39,11 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
                   {isCredit ? "Received from" : "Sent to"}{" "}
                   <span className="font-semibold">{otherPerson.username}</span>
                 </div>
-                <div className="text-sm text-muted-foreground">
+                <ToolTip content={otherPerson.emailAddress}>
+                <div className="text-sm text-muted-foreground w-40 truncate">
                   {otherPerson.emailAddress}
                 </div>
+                </ToolTip>
                 <div className="text-xs text-muted-foreground">
                   {format(new Date(tx.createdAt), "MMM d, yyyy 'at' h:mm a")}
                 </div>

@@ -23,7 +23,7 @@ const Receive: React.FC = () => {
           className="size-36 rounded"
         />
       ) : (
-        <div className="text-muted-foreground border border-input rounded text-center size-36 flex items-center justify-center">
+        <div className="bg-accent text-muted-foreground border border-input rounded text-center size-36 flex items-center justify-center">
           Kindly enter amount before generating the QR code
         </div>
       )}
