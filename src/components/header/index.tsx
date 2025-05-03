@@ -9,6 +9,7 @@ import SearchInput from "./search-input";
 import AvatarActions from "./actions";
 import HeaderBalance from "./balance";
 import ProfileCard from "./profile";
+import Cart from "./cart";
 
 const Header: React.FC = () => {
   const { token } = useAppContext();
@@ -16,6 +17,7 @@ const Header: React.FC = () => {
     jwtDecode(token) as CustomJwtPayload
   ).publicKey.toLowerCase();
   const [showLogout, setShowLogout] = useState<boolean>(false);
+  const [showCart, setShowCart] = useState<boolean>(false);
 
   return (
     <>
@@ -37,8 +39,9 @@ const Header: React.FC = () => {
             <SearchInput />
           </div>
           <HeaderBalance />
-          <AvatarActions {...{ publicKey, setShowLogout }} />
+          <AvatarActions {...{ publicKey, setShowLogout, setShowCart }} />
         </div>
+      <Cart {...{ showCart, setShowCart }} />
       </div>
       <LogOutConfirmation {...{ showLogout, setShowLogout }} />
       <ProfileCard />
