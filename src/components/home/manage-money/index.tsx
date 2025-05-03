@@ -1,6 +1,3 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ArrowUpRight,
@@ -8,10 +5,10 @@ import {
   ScanLine,
   BanknoteArrowDown,
   BanknoteArrowUp,
-  UserRoundSearch,
   PiggyBank,
   HandCoins,
 } from "lucide-react";
+import SendMoney from "./send";
 
 const ManageMoney: React.FC = () => {
   return (
@@ -65,33 +62,7 @@ const ManageMoney: React.FC = () => {
         value="send"
         className="p-2 sm:p-0 flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-4"
       >
-        {/* amount */}
-        <div className="flex flex-col items-center">
-          <Input
-            autoFocus
-            underlined
-            placeholder="0.00 IOTA"
-            className="text-center border-b-0 text-5xl sm:text-7xl rounded-t-xl"
-            type="number"
-          />
-        </div>
-        {/* recipient */}
-        <div className="grid w-full max-w-sm items-center gap-1.5">
-          <Label htmlFor="recipient" className="text-muted-foreground">
-            Recipient
-          </Label>
-          <div className="flex items-center gap-2">
-            <Input
-              id="recipient"
-              type="search"
-              placeholder="Username, public address, email address"
-            />
-            <Button>
-              <UserRoundSearch />
-              Search
-            </Button>
-          </div>
-        </div>
+        <SendMoney />
       </TabsContent>
       <TabsContent
         value="withdraw"

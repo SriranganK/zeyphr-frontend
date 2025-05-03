@@ -37,7 +37,7 @@ const Products: React.FC = () => {
       >
         <div className="flex flex-wrap gap-4 sm:gap-8 justify-center">
           {fetching &&
-            [..."1234"].map((i) => (
+            [..."01234"].map((i) => (
               <Skeleton key={i} className="w-80 sm:w-64 h-[17rem] rounded-xl" />
             ))}
           {productIds.map((pid) => (
