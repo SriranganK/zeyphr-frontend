@@ -74,7 +74,6 @@ const ManageMoney: React.FC = () => {
             className="text-center border-b-0 text-5xl sm:text-7xl rounded-t-xl"
             type="number"
           />
-          <p className="font-light">ETH</p>
         </div>
         {/* recipient */}
         <div className="grid w-full max-w-sm items-center gap-1.5">

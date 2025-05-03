@@ -38,8 +38,14 @@ const Transactions: React.FC = () => {
   const [otherTxs, setOtherTxs] = useState<TransactionFromExplorer[]>([]);
   const [fetching, setFetching] = useState<boolean>(false);
 
-  const creditTxs = txs.filter((tx) => tx.to.toLowerCase() === publicKey);
-  const debitTxs = txs.filter((tx) => tx.from.toLowerCase() === publicKey);
+  const creditTxs = txs.filter(
+    (tx) =>
+      typeof tx.to !== "string" && tx.to.publicKey.toLowerCase() === publicKey
+  );
+  const debitTxs = txs.filter(
+    (tx) =>
+      typeof tx.from !== "string" && tx.from.publicKey.toLowerCase() === publicKey
+  );
 
   const fetchUserTransactions = useCallback(async () => {
     try {
@@ -148,7 +154,7 @@ const Transactions: React.FC = () => {
         >
           {fetching && <TransactionsSkeleton />}
           {txs.map((tx) => (
-            <TransactionCard key={tx.id} tx={tx} publicKey={publicKey} />
+            <TransactionCard key={tx.id} {...{tx, publicKey}} />
           ))}
         </ScrollArea>
       </TabsContent>
@@ -162,7 +168,7 @@ const Transactions: React.FC = () => {
         >
           {fetching && <TransactionsSkeleton />}
           {creditTxs.map((tx) => (
-            <TransactionCard key={tx.id} tx={tx} publicKey={publicKey} />
+            <TransactionCard key={tx.id} {...{tx, publicKey}}  />
           ))}
         </ScrollArea>
       </TabsContent>
@@ -176,7 +182,7 @@ const Transactions: React.FC = () => {
         >
           {fetching && <TransactionsSkeleton />}
           {debitTxs.map((tx) => (
-            <TransactionCard key={tx.id} tx={tx} publicKey={publicKey} />
+            <TransactionCard key={tx.id} {...{tx, publicKey}} />
           ))}
         </ScrollArea>
       </TabsContent>
@@ -192,7 +198,7 @@ const Transactions: React.FC = () => {
           {otherTxs.map((tx) => (
             <ExplorerTransactionCard
               key={tx.txHash}
-              tx={tx}
+              {...{tx, publicKey}}
               publicKey={publicKey}
             />
           ))}

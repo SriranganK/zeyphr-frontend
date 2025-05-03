@@ -4,7 +4,11 @@ import { format } from "date-fns";
 import { Badge } from "../../ui/badge";
 import ToolTip from "../../tooltip";
 import { DICEBEAR_API, EXPLORER_URL } from "@/data/app";
-import { TransactionFromDB, TransactionFromExplorer } from "@/lib/types";
+import {
+  TransactionFromDB,
+  TransactionFromExplorer,
+  UserInfo,
+} from "@/lib/types";
 import { Clock } from "lucide-react";
 import { Skeleton } from "@/components/ui/skeleton";
 
@@ -12,8 +16,8 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
   tx,
   publicKey,
 }) => {
-  const isCredit = tx.to.toLowerCase() === publicKey.toLowerCase();
-  const otherPersonId = isCredit ? tx.from : tx.to;
+  const isCredit = typeof tx.to !== "string" && tx.to.publicKey.toLowerCase() === publicKey;
+  const otherPerson = (isCredit ? tx.from : tx.to) as Omit<UserInfo, "_id">;
 
   return (
     <ToolTip content="View transaction in explorer" hideOnMobile>
@@ -26,20 +30,20 @@ export const TransactionCard: React.FC<TransactionCardProps> = ({
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <Avatar className="size-10">
-                <AvatarImage src={`${DICEBEAR_API}=${otherPersonId}`} />
-                <AvatarFallback>{otherPersonId}</AvatarFallback>
+                <AvatarImage src={`${DICEBEAR_API}=${otherPerson.publicKey}`} />
+                <AvatarFallback>{otherPerson.username}</AvatarFallback>
               </Avatar>
               <div>
                 <div className="font-medium">
                   {isCredit ? "Received from" : "Sent to"}{" "}
-                  <span className="font-semibold">Suraj Vijayan</span>
+                  <span className="font-semibold">{otherPerson.username}</span>
                 </div>
                 <div className="text-sm text-muted-foreground">
-                  surajvijay67@gmail.com
+                  {otherPerson.emailAddress}
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  <ToolTip content={otherPersonId} hideOnMobile>
-                    <span>{truncateAddress(otherPersonId)}</span>
+                  <ToolTip content={otherPerson.publicKey} hideOnMobile>
+                    <span>{truncateAddress(otherPerson.publicKey)}</span>
                   </ToolTip>{" "}
                   • {format(new Date(tx.createdAt), "MMM d, yyyy 'at' h:mm a")}
                 </div>
@@ -127,7 +131,7 @@ export const ExplorerTransactionCard: React.FC<
                   </ToolTip>
                 </div>
                 <div className="text-xs text-muted-foreground">
-                  {format(new Date(+tx.timestamp), "MMM d, yyyy 'at' h:mm a")}
+                  {format(new Date((+tx.timestamp) * 1000), "MMM d, yyyy 'at' h:mm a")}
                 </div>
               </div>
             </div>

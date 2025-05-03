@@ -143,22 +143,27 @@ const LoginPage: React.FC = () => {
         .then(({ data }) => {
           setToken!(data.token);
           cleanUp();
-        }).catch((err) => {
+        })
+        .catch((err) => {
           if (isAxiosError(err)) {
             if (err.response?.data.error === "User already exists") {
               toast.error("User already exists");
               return;
             }
           }
-        }).finally(() => setLoading(false));
+        })
+        .finally(() => setLoading(false));
     }
     // existing user
     else {
       setLoading(true);
-      const loginUserPromise = axios.post<{ success: boolean; token: string }>("/auth/login", {
-        emailAddress: email,
-        password,
-      });
+      const loginUserPromise = axios.post<{ success: boolean; token: string }>(
+        "/auth/login",
+        {
+          emailAddress: email,
+          password,
+        }
+      );
       toast.promise(loginUserPromise, {
         loading: "Authenticating...",
         success: "Logged in successfully!!",
@@ -171,12 +176,14 @@ const LoginPage: React.FC = () => {
             setStep(0);
             cleanUp();
           }
-        }).catch((err) => {
+        })
+        .catch((err) => {
           if (isAxiosError(err)) {
             toast.error(err.response?.data.error ?? "Some error occured");
             return;
           }
-        }).finally(() => setLoading(false));
+        })
+        .finally(() => setLoading(false));
     }
   };
 
@@ -187,7 +194,7 @@ const LoginPage: React.FC = () => {
       const checkAccountStatus = async () => {
         setLoading(true);
         try {
-          const { data } = await axios.get(`/users/${email}`);
+          const { data } = await axios.get(`/users/check-email/${email}`);
           setIsExistingUser(data.existing);
         } finally {
           setLoading(false);
@@ -207,7 +214,9 @@ const LoginPage: React.FC = () => {
         <div className="flex flex-col items-center sm:gap-4 justify-center">
           <div className="flex items-center gap-2">
             <img src={zeyphrLogo} alt="Zeyphr Logo" className="size-14" />
-            <CardTitle className="text-4xl sm:text-6xl font-semibold">Zeyphr</CardTitle>
+            <CardTitle className="text-4xl sm:text-6xl font-semibold">
+              Zeyphr
+            </CardTitle>
           </div>
           <CardDescription className="text-lg sm:text-xl text-muted-foreground">
             Bringing Web3 to everyone
@@ -282,8 +291,8 @@ const LoginPage: React.FC = () => {
                       <Info />
                       <AlertTitle>Note</AlertTitle>
                       <AlertDescription>
-                        Please save your password safely — you’ll need it to
-                        log in or approve transactions.
+                        Please save your password safely — you’ll need it to log
+                        in or approve transactions.
                       </AlertDescription>
                     </Alert>
                   )}

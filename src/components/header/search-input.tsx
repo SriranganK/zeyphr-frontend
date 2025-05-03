@@ -12,7 +12,7 @@ import {
 } from "../ui/command";
 import { DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
 import { ScrollArea } from "../ui/scroll-area";
-import { SearchResultUser } from "@/lib/types";
+import { CustomJwtPayload, SearchResultUser } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DICEBEAR_API } from "@/data/app";
 import { useAppContext } from "@/context/app";
@@ -20,10 +20,14 @@ import axios from "axios";
 import { Skeleton } from "../ui/skeleton";
 import { cn } from "@/lib/utils";
 import { useLocation, useNavigate } from "react-router";
+import { jwtDecode } from "jwt-decode";
 
 const SearchInput: React.FC = () => {
   const isMobile = useIsMobile();
   const { token } = useAppContext();
+  const publicKey = (
+    jwtDecode(token) as CustomJwtPayload
+  ).publicKey.toLowerCase();
   const [open, setOpen] = useState(false);
   const [fetching, setFetching] = useState<boolean>(false);
   const [searchInput, setSearchInput] = useState<string>("");
@@ -36,7 +40,7 @@ const SearchInput: React.FC = () => {
     }
   }, [open]);
 
-  // searching users and debouncing them
+  // searching users with debounce
   useEffect(() => {
     const handler = setTimeout(() => {
       const fetchUsers = async () => {
@@ -55,7 +59,9 @@ const SearchInput: React.FC = () => {
               },
             }
           );
-          setUsers(data);
+          setUsers(
+            data.filter((user) => user.publicKey.toLowerCase() !== publicKey)
+          );
         } finally {
           setFetching(false);
         }
@@ -67,7 +73,7 @@ const SearchInput: React.FC = () => {
     return () => {
       clearTimeout(handler);
     };
-  }, [searchInput, token]);
+  }, [searchInput, token, publicKey]);
 
   return (
     <>

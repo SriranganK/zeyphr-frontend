@@ -8,6 +8,7 @@ import LogOutConfirmation from "./logout";
 import SearchInput from "./search-input";
 import AvatarActions from "./actions";
 import HeaderBalance from "./balance";
+import ProfileCard from "./profile";
 
 const Header: React.FC = () => {
   const { token } = useAppContext();
@@ -40,6 +41,7 @@ const Header: React.FC = () => {
         </div>
       </div>
       <LogOutConfirmation {...{ showLogout, setShowLogout }} />
+      <ProfileCard />
     </>
   );
 };

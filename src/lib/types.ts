@@ -4,11 +4,14 @@ export type CustomJwtPayload = {
     _id: string;
 };
 
-export type SearchResultUser = {
+export type UserInfo = {
+    _id: string;
     username: string;
     emailAddress: string;
     publicKey: string;
-};
+}
+
+export type SearchResultUser = Omit<UserInfo, "_id">;
 
 export type HomePageItem = {
     tokenId: number;
@@ -31,8 +34,8 @@ export type ItemMetaData = {
 export type TransactionFromDB = {
     id: string;
     txHash: string;
-    from: string;
-    to: string;
+    from: "" | Omit<UserInfo, "_id">;
+    to: "" | Omit<UserInfo, "_id">;
     amount: number;
     currency: "ETH";
     paymentMethod: "qr" | "card" | "wallet";
@@ -61,7 +64,6 @@ export type ExplorerTx = {
     txreceipt_status: string;
     value: string;
 };
-
 
 export type TransactionFromExplorer = {
     txHash: string;
