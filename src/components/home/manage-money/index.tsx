@@ -9,6 +9,7 @@ import {
   HandCoins,
 } from "lucide-react";
 import SendMoney from "./send";
+import Receive from "./receive";
 
 const ManageMoney: React.FC = () => {
   return (
@@ -63,6 +64,12 @@ const ManageMoney: React.FC = () => {
         className="p-2 sm:p-0 flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-2"
       >
         <SendMoney />
+      </TabsContent>
+      <TabsContent
+        value="receive"
+        className="p-2 sm:p-0 flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-2"
+      >
+        <Receive />
       </TabsContent>
       <TabsContent
         value="withdraw"

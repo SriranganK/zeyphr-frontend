@@ -94,7 +94,7 @@ const Transactions: React.FC = () => {
           </p>
         </div>
         <div className="flex w-full sm:w-fit justify-between items-end gap-0.5">
-          <ToolTip content="Refresh transactions">
+          <ToolTip content="Refresh transactions" hideOnMobile>
             <Button
               size="icon"
               variant="ghost"
