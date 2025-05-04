@@ -28,7 +28,7 @@ export const formatCurrency = (amount: string) =>
     try {
       const url = new URL(qrString.replace("zeyphr://", "https://"));
       const publicKey = url.searchParams.get("pub") || "";
-      const amount = url.searchParams.get("am") || "";
+      const amount = url.searchParams.get("amt") || "";
       const txId = url.searchParams.get("id") || "";
   
       return { publicKey, amount, txId };
