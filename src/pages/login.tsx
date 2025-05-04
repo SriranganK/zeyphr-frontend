@@ -18,6 +18,7 @@ import {
   LogIn,
   Mail,
   Rocket,
+  Youtube,
 } from "lucide-react";
 import TermsOfService from "@/components/login/terms";
 import PrivacyPolicy from "@/components/login/privacy";
@@ -213,7 +214,13 @@ const LoginPage: React.FC = () => {
   }
 
   return (
-    <div className="flex items-center justify-center h-screen w-screen bg-background px-4">
+    <div className="gap-2 flex flex-col items-center justify-center h-screen w-screen bg-background px-4">
+      <Button variant="destructive" asChild>
+        <a href="https://youtu.be/2_dmkKHpmGk?si=LUITiZmzf1zUCH3Y" target="_blank" className="flex items-center gap-2">
+          <Youtube />
+          Click here for our story
+        </a>
+      </Button>
       <Card className="w-full max-w-80 sm:max-w-96">
         <div className="flex flex-col items-center sm:gap-4 justify-center">
           <div className="flex items-center gap-2">
