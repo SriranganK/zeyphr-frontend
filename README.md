@@ -1,54 +1,86 @@
-# React + TypeScript + Vite
+# Zeyphr – Bringing Web3 to Everyone
+![Zeyphr Logo](https://res.cloudinary.com/dezo0vvpb/image/upload/v1746361459/WhatsApp_Image_2025-04-09_at_5.09.11_PM_hyxsn5.jpg)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Zeyphr is a decentralized Web3 marketplace and crypto-native payment platform built using the IOTA EVM. It enables users and businesses to transact seamlessly, both online and offline, with familiar Web2-like user experiences—email logins, one-tap payments, QR scan, and more—while abstracting away the blockchain complexities underneath.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📂 Related Repositories
 
-## Expanding the ESLint configuration
+> 🔗 This repository contains the **Front end code** for Zeyphr.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+You can find the rest of the Zeyphr project codes here:
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+- 🖥️ **POS Machine:**
+    [github.com/SriranganK/zeyphr/tree/main/pos_machine](https://github.com/SriranganK/zeyphr/tree/main/pos_machine)
+
+- 🛠️ **Back End:**
+    [github.com/SriranganK/zeyphr-backend](https://github.com/SriranganK/zeyphr-backend)
+
+- 📜 **Smart Contracts:**
+    [github.com/nikhilkxmar/zeyphr-contract](https://github.com/nikhilkxmar/zeyphr-contract)
+
+---
+
+## 🔨 Setup
+
+Your `.env` file should look something like this.
+
+```
+VITE_API_ENDPOINT="YOUR-BASE-BACK-END-URL/api"
+VITE_DICEBEAR_API=https://api.dicebear.com/9.x/identicon/svg?seed
+VITE_FAUCET_LINK=https://evm-toolkit.evm.testnet.iotaledger.net/
+VITE_RPC_URL=https://json-rpc.evm.testnet.iotaledger.net/
+VITE_CONTRACT_ADDRESS="YOUR-DEPLOYED-CONTRACT-ADDRESS"
+VITE_EXPLORER_URL=https://explorer.evm.testnet.iotaledger.net
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚽ Usage
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
 ```
+1. npm install
+2. npm run dev
+3. npm run build (to build the code)
+```
+
+---
+
+## 🚀 Live Demo
+
+🔗 [Try Zeyphr Now](https://zeyphr.netlify.app/)
+
+> Create your account and experience the future of decentralized commerce with **Zeyphr**
+---
+
+
+## 🧠 About Zeyphr
+
+Zeyphr is our submission to the IOTA Movethon under the **Payments & Consumer Applications** track. Our Mission is Web3 ecommerce gateway that removes the complexity of blockchain. From email-password logins to universal tap-and-pay, QR pay Zeyphr enables anyone to buy, sell, and transact — online or offline - Just like Web2 !!
+
+---
+
+## ✨ Features
+
+- 🪪 **Web2-style Login:** Email + Password with Email OTP; wallets are abstracted from the user.
+
+- 📲 **Tap & Pay:** NFC-based crypto payments via physical Zeyphr card with in-store POS devices.
+- 🔍 **Scan & Pay:** QR-based payments available on web and in-store POS devices.
+- 🔐 **Secure Wallet Management:** Private keys are encrypted using user credentials and stored securely.
+- 🛒 **Decentralized Marketplace:** Buy & sell physical and digital products online or in-store.
+
+---
+## 🏗 Architecture
+
+![Zeyphr Architecture](https://res.cloudinary.com/dezo0vvpb/image/upload/v1746361408/zeyphr_arch_bnwsbz.jpg)
+
+---
+## 🛠️ Tech Stack
+
+- **Frontend:** ReactJS , Shadcn, ethers.js
+- **Backend:** Node.js with Express , Flask
+- **Database:** MongoDB
+- **Blockchain:** IOTA EVM, Solidity, Pinata(IPFS)
+- **POS Machine**: IOT, Python, Shell Script, ReactJS
+- **POS Hardware**: Raspberry Pi 5, Display(XPT2046), NFC Sensor(PN532)
