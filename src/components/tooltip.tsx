@@ -9,7 +9,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 const ToolTip: React.FC<ToolTipProps> = ({
   children,
@@ -17,12 +16,9 @@ const ToolTip: React.FC<ToolTipProps> = ({
   className,
   side = "bottom",
   align = "center",
-  hideOnMobile = false,
 }) => {
-  const isMobile = useIsMobile();
 
   // tooltip in desktop mode
-  if (!isMobile) {
     return (
       <TooltipProvider>
         <Tooltip>
@@ -37,12 +33,6 @@ const ToolTip: React.FC<ToolTipProps> = ({
         </Tooltip>
       </TooltipProvider>
     );
-  }
-
-  if (hideOnMobile) return children;
-
-  // popover in mobile mode
-  return (<></>);
 };
 
 export default ToolTip;

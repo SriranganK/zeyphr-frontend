@@ -3,3 +3,4 @@
 /// <reference types="date-fns" />
 /// <reference types="react-qr-code" />
 /// <reference types="canvas-confetti" />
+/// <reference types="react-qr-barcode-scanner" />
