@@ -21,6 +21,7 @@ const LogOutConfirmation: React.FC<LogOutConfirmationProps> = ({
 
   const handleLogOut = () => {
     setToken!("");
+    localStorage.removeItem("zeyphr-tkn");
     clearCart();
   };
 

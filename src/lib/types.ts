@@ -70,3 +70,12 @@ export type TransactionFromExplorer = {
     amount: string;
     timestamp: string;
 };
+
+export type FetchUserResponse = {
+    _id: string;
+    username: string;
+    emailAddress: string;
+    publicKey: string;
+    card: "enabled" | "disabled";
+    billingAddress: string;
+};

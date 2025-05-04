@@ -61,7 +61,7 @@ const SendMoney: React.FC = () => {
         { headers: { Authorization: `Bearer ${token}` } }
       );
       toast.promise(sendTx, {
-        loading: `Sending ${amount} IOTA to "${finalUser.username}"`,
+        loading: `Sending ${amount} IOTA to "${finalUser.username}..."`,
         success: "Transaction successfull!!",
         error: "Transaction failed. Please try again.",
       });
