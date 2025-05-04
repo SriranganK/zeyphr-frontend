@@ -12,7 +12,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { useAppContext } from "@/context/app";
 import { FetchUserResponse } from "@/lib/types";
 import { toast } from "sonner";
@@ -86,6 +86,13 @@ export default function EnableNFCDialog({
           setShowManageCard(false);
           celeberate();
         })
+        .catch(err => {
+          if (isAxiosError(err)) {
+            if (err.response?.data.error === "Invalid credentials") {
+              toast.error("Transaction failed due to invalid credentials.");
+            }
+          }
+        })
         .finally(() => setLoading(false));
     };
     setPwdOpen!(true);
@@ -113,15 +120,22 @@ export default function EnableNFCDialog({
       });
       disableTapTx
         .then(() => setShowManageCard(false))
+        .catch(err => {
+          if (isAxiosError(err)) {
+            if (err.response?.data.error === "Invalid credentials") {
+              toast.error("Transaction failed due to invalid credentials.");
+            }
+          }
+        })
         .finally(() => setLoading(false));
     };
     setPwdOpen!(true);
   };
 
   return (
-    <Dialog 
-      open={showManageCard} 
-      onOpenChange={loading? undefined : setShowManageCard}>
+    <Dialog
+      open={showManageCard}
+      onOpenChange={loading ? undefined : setShowManageCard}>
       <DialogContent>
         {!fetching ? <>
           <DialogHeader>

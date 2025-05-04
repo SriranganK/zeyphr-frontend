@@ -12,7 +12,7 @@ import { SearchResultUser } from "@/lib/types";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DICEBEAR_API } from "@/data/app";
 import { useAppContext } from "@/context/app";
-import axios from "axios";
+import axios, { isAxiosError } from "axios";
 import { celeberate } from "@/lib/confetti";
 
 const SendMoney: React.FC = () => {
@@ -72,6 +72,13 @@ const SendMoney: React.FC = () => {
           setAmount("");
           setUserKey("");
           celeberate();
+        })
+        .catch(err => {
+          if (isAxiosError(err)) {
+            if (err.response?.data.error === "Invalid credentials") {
+              toast.error("Transaction failed due to invalid credentials.");
+            }
+          }
         })
         .finally(() => setSending(false));
     };

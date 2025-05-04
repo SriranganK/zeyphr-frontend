@@ -89,7 +89,7 @@ const HomeProductCard: React.FC<HomeProductCardProps> = ({ pid }) => {
           </p>
         </ScrollArea>
         <div className="grid grid-cols-2 gap-2 px-3 mt-1">
-          <Button>Buy now</Button>
+          <Button size="sm">Buy now</Button>
           <ToolTip
             content="Item already in cart"
             hideOnMobile
@@ -100,6 +100,7 @@ const HomeProductCard: React.FC<HomeProductCardProps> = ({ pid }) => {
                 disabled={alreadyInCart}
                 variant="outline"
                 onClick={handleAddCart}
+                size="sm"
               >
                 <ShoppingCart />
                 Add to cart
