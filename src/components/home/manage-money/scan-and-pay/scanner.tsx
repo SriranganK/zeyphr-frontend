@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import BarcodeScanner from "react-qr-barcode-scanner";
 
 const QRScanner: React.FC<QRScannerProps> = ({ setQrValue }) => {
-    const [open, setOpen] = useState<boolean>(false);
+    const [open, setOpen] = useState<boolean>(true);
     const [data, setData] = useState<string>("");
 
     useEffect(() => {
@@ -16,7 +16,7 @@ const QRScanner: React.FC<QRScannerProps> = ({ setQrValue }) => {
     }, [data, setQrValue]);
 
     return (
-        <Dialog open={open} onOpenChange={setOpen}>
+        <Dialog open={open} onOpenChange={setOpen} defaultOpen>
             <DialogTrigger asChild>
                 <Button variant="ghost">
                     <QrCode />
