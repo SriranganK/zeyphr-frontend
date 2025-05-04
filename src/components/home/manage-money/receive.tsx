@@ -4,6 +4,7 @@ import { useAppContext } from "@/context/app";
 import { CustomJwtPayload } from "@/lib/types";
 import { jwtDecode } from "jwt-decode";
 import { Coins } from "lucide-react";
+import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
 import QRCode from "react-qr-code";
 
@@ -12,7 +13,7 @@ const Receive: React.FC = () => {
   const publicKey = (
     jwtDecode(token) as CustomJwtPayload
   ).publicKey.toLowerCase();
-  const [txId] = useState<string>(crypto.randomUUID());
+  const [txId] = useState<string>(uuidv4());
   const [amount, setAmount] = useState<string>("");
 
   return (
