@@ -1,4 +1,4 @@
-export const API_ENDPOINT = "http://localhost:5001/api";
+export const API_ENDPOINT = "http://192.168.29.51:5001/api";
 
 export const DICEBEAR_API = "https://api.dicebear.com/9.x/identicon/svg?seed";
 

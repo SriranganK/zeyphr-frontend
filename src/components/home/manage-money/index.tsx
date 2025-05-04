@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import SendMoney from "./send";
 import Receive from "./receive";
+import ScanAndPay from "./scan-and-pay";
 
 const ManageMoney: React.FC = () => {
   return (
@@ -70,6 +71,12 @@ const ManageMoney: React.FC = () => {
         className="p-2 sm:p-0 flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-2"
       >
         <Receive />
+      </TabsContent>
+      <TabsContent
+        value="scan-pay"
+        className="p-2 sm:p-0 flex flex-col items-center justify-center bg-card border border-input rounded-xl shadow-sm gap-2"
+      >
+        <ScanAndPay />
       </TabsContent>
       <TabsContent
         value="withdraw"

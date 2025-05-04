@@ -9,7 +9,6 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "./ui/tooltip";
-import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const ToolTip: React.FC<ToolTipProps> = ({
@@ -43,18 +42,7 @@ const ToolTip: React.FC<ToolTipProps> = ({
   if (hideOnMobile) return children;
 
   // popover in mobile mode
-  return (
-    <Popover>
-      <PopoverTrigger asChild>{children}</PopoverTrigger>
-      <PopoverContent
-        align={align}
-        side={side}
-        className={cn("text-justify", className)}
-      >
-        <small className="text-sm font-medium leading-none">{content}</small>
-      </PopoverContent>
-    </Popover>
-  );
+  return (<></>);
 };
 
 export default ToolTip;
