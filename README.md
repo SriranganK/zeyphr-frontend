@@ -12,13 +12,13 @@ Zeyphr is a decentralized Web3 marketplace and crypto-native payment platform bu
 You can find the rest of the Zeyphr project codes here:
 
 - 🖥️ **POS Machine:**
-    [github.com/SriranganK/zeyphr/tree/main/pos_machine](https://github.com/SriranganK/zeyphr/tree/main/pos_machine)
+    [github.com/SriranganK/zeyphr/tree/main/pos_machine](https://bit.ly/zeyphr-pos)
 
 - 🛠️ **Back End:**
-    [github.com/SriranganK/zeyphr-backend](https://github.com/SriranganK/zeyphr-backend)
+    [github.com/SriranganK/zeyphr-backend](https://bit.ly/zeyphr-backend)
 
 - 📜 **Smart Contracts:**
-    [github.com/nikhilkxmar/zeyphr-contract](https://github.com/nikhilkxmar/zeyphr-contract)
+    [github.com/nikhilkxmar/zeyphr-contract](https://bit.ly/zeyphr-contract)
 
 ---
 
