@@ -22,6 +22,7 @@ import HeaderBalance from "./balance";
 
 const AvatarActions: React.FC<AvatarActionsProps> = ({
   setShowLogout,
+  setShowManageCard,
   publicKey,
 }) => {
   const isMobile = useIsMobile();
@@ -66,6 +67,7 @@ const AvatarActions: React.FC<AvatarActionsProps> = ({
         <Wrapper.Item
           variant={isMobile ? ("ghost" as "default") : "default"}
           className="justify-start"
+          onClick={() => setShowManageCard(true)}
         >
           <CreditCard />
           Manage Card
@@ -95,4 +97,5 @@ export default AvatarActions;
 interface AvatarActionsProps {
   publicKey: string;
   setShowLogout: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowManageCard: React.Dispatch<React.SetStateAction<boolean>>;
 }

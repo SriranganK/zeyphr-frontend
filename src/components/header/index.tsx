@@ -15,6 +15,7 @@ import { ShoppingCart } from "lucide-react";
 import ToolTip from "../tooltip";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCart } from "@/context/CartContext";
+import EnableNFCDialog from "./manageCard";
 
 const Header: React.FC = () => {
   const { token } = useAppContext();
@@ -25,6 +26,8 @@ const Header: React.FC = () => {
   ).publicKey.toLowerCase();
   const [showLogout, setShowLogout] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
+  const [showManageCard, setShowManageCard] = useState<boolean>(false);
+
 
   return (
     <>
@@ -61,10 +64,11 @@ const Header: React.FC = () => {
             </Button>
           </ToolTip>
           <HeaderBalance hidden={isMobile} />
-          <AvatarActions {...{ publicKey, setShowLogout, setShowCart }} />
+          <AvatarActions {...{ publicKey, setShowLogout ,setShowManageCard }} />
         </div>
         <Cart {...{ showCart, setShowCart }} />
       </div>
+      <EnableNFCDialog {...{ showManageCard, setShowManageCard ,publicKey}} />
       <LogOutConfirmation {...{ showLogout, setShowLogout }} />
       <ProfileCard />
     </>
