@@ -28,7 +28,6 @@ import { Skeleton } from "../ui/skeleton";
 
 const AvatarActions: React.FC<AvatarActionsProps> = ({
   setShowLogout,
-  setShowManageCard,
   setShowManageProducts,
   publicKey,
   setShowManageProfile,

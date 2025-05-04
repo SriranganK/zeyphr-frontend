@@ -69,6 +69,7 @@ export default function UserCollection({ token }: { token: string }) {
     );
     updateTrackChanges(tokenId, {
       availableSupply:
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         items.find((i) => i.tokenId === tokenId)?.availableSupply! + 1,
     });
   };
@@ -86,6 +87,7 @@ export default function UserCollection({ token }: { token: string }) {
     );
     updateTrackChanges(tokenId, {
       availableSupply:
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
         items.find((i) => i.tokenId === tokenId)?.availableSupply! - 1,
     });
   };
