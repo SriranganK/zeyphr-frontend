@@ -8,6 +8,8 @@ import { useAppContext } from "@/context/app";
 import axios from "axios";
 import { toast } from "sonner";
 import { celeberate } from "@/lib/confetti";
+import ToolTip from "../tooltip";
+import { cn } from "@/lib/utils";
 
 interface CheckoutProps {
   showCheckout: boolean;
@@ -20,7 +22,7 @@ const Checkout: React.FC<CheckoutProps> = ({
   setShowCheckout,
   setShowCart,
 }) => {
-  const { cartItems,clearCart } = useCart();
+  const { cartItems, clearCart } = useCart();
   const { postPwdCb, setPwdOpen, token } = useAppContext();
   const [isEditingAddress, setIsEditingAddress] = useState(false);
   const [address, setAddress] = useState("");
@@ -32,7 +34,7 @@ const Checkout: React.FC<CheckoutProps> = ({
   const delivery = subtotal > 0n ? BigInt("5000000000000000000") : BigInt(0); // 5 IOTA
   const total = subtotal + delivery;
 
-  function convertBigIntToString(obj:unknown) {
+  function convertBigIntToString(obj: unknown) {
     return JSON.parse(
       JSON.stringify(obj, (_, value) =>
         typeof value === "bigint" ? value.toString() : value
@@ -117,16 +119,17 @@ const Checkout: React.FC<CheckoutProps> = ({
               <p className="text-sm text-gray-700">{address}</p>
             ) : (
               <p className="text-sm text-gray-500">
-                Please add a shipping address.
+                Please add a billing address.
               </p>
             )}
           </div>
-          <button
-            className="text-blue-600 text-sm font-medium ml-2"
+          <Button
+            variant="secondary"
+            size="sm"
             onClick={() => setIsEditingAddress(!isEditingAddress)}
           >
             {isEditingAddress ? "Save" : "Edit"}
-          </button>
+          </Button>
         </div>
 
         {/* Order Details */}
@@ -167,10 +170,14 @@ const Checkout: React.FC<CheckoutProps> = ({
             <span>Total</span>
             <span>{ethers.formatEther(total)} IOTA</span>
           </div>
-          <Button className="w-full" onClick={handlePay}>
-            <Rocket />
-            Pay {ethers.formatEther(total)} IOTA
-          </Button>
+          <ToolTip content="Kindly add billing address" className={cn(address.length > 0 && "hidden")}>
+            <div>
+              <Button disabled={!address.length} className="w-full" onClick={handlePay}>
+                <Rocket />
+                Pay {ethers.formatEther(total)} IOTA
+              </Button>
+            </div>
+          </ToolTip>
         </div>
       </SheetContent>
     </Sheet>
