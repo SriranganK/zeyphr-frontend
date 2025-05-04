@@ -70,7 +70,7 @@ const HomeProductCard: React.FC<HomeProductCardProps> = ({ pid }) => {
         <img
           src={itemInfo.image}
           alt={itemInfo.name}
-          className="rounded-t-xl max-h-36 object-cover shadow-sm"
+          className="rounded-t-xl h-36 max-h-36 object-contain shadow-sm"
         />
         <div className="px-3 flex items-center justify-between mt-2">
           <p className="text-sm font-semibold text-foreground">

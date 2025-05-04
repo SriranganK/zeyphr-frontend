@@ -31,8 +31,7 @@ const Checkout: React.FC<CheckoutProps> = ({
     (sum, item) => sum + BigInt(item.price ?? "0"),
     BigInt(0)
   );
-  const delivery = subtotal > 0n ? BigInt("5000000000000000000") : BigInt(0); // 5 IOTA
-  const total = subtotal + delivery;
+  const total = subtotal;
 
   function convertBigIntToString(obj: unknown) {
     return JSON.parse(
