@@ -5,6 +5,14 @@ Zeyphr is a decentralized Web3 marketplace and crypto-native payment platform bu
 
 ---
 
+## 🔗 Links
+
+- [📹️ **Demo Video**](https://youtu.be/2_dmkKHpmGk?si=Itxnn4ckQVZE4EFu)
+
+- [🛠️ **Pitch Deck**](https://docs.google.com/presentation/d/1BHCd-msoeLb-_6pV9gf9d7nPe008a_EfaSwtajmkBzo/edit?usp=sharing)
+
+---
+
 ## 📂 Related Repositories
 
 > 🔗 This repository contains the **Front end code** for Zeyphr.
