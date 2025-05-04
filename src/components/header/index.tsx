@@ -16,6 +16,7 @@ import ToolTip from "../tooltip";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useCart } from "@/context/CartContext";
 import EnableNFCDialog from "./manageCard";
+import ManageProfile from "./manage-profile";
 
 const Header: React.FC = () => {
   const { token } = useAppContext();
@@ -27,6 +28,7 @@ const Header: React.FC = () => {
   const [showLogout, setShowLogout] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showManageCard, setShowManageCard] = useState<boolean>(false);
+  const [showManageProfile, setShowManageProfile] = useState<boolean>(false);
 
 
   return (
@@ -64,13 +66,14 @@ const Header: React.FC = () => {
             </Button>
           </ToolTip>
           <HeaderBalance hidden={isMobile} />
-          <AvatarActions {...{ publicKey, setShowLogout ,setShowManageCard }} />
+          <AvatarActions {...{ publicKey, setShowLogout, setShowManageCard, setShowManageProfile }} />
         </div>
         <Cart {...{ showCart, setShowCart }} />
       </div>
-      <EnableNFCDialog {...{ showManageCard, setShowManageCard ,publicKey}} />
+      <EnableNFCDialog {...{ showManageCard, setShowManageCard, publicKey }} />
       <LogOutConfirmation {...{ showLogout, setShowLogout }} />
       <ProfileCard />
+      <ManageProfile open={showManageProfile} setOpen={setShowManageProfile} />
     </>
   );
 };

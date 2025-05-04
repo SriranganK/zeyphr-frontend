@@ -30,6 +30,7 @@ const AvatarActions: React.FC<AvatarActionsProps> = ({
   setShowLogout,
   setShowManageCard,
   publicKey,
+  setShowManageProfile,
 }) => {
   const { token } = useAppContext();
   const isMobile = useIsMobile();
@@ -104,6 +105,7 @@ const AvatarActions: React.FC<AvatarActionsProps> = ({
         <Wrapper.Item
           variant={isMobile ? ("ghost" as "default") : "default"}
           className="justify-start"
+          onClick={() => setShowManageProfile(true)}
         >
           <UserRoundPen />
           Manage Profile
@@ -135,4 +137,5 @@ interface AvatarActionsProps {
   publicKey: string;
   setShowLogout: React.Dispatch<React.SetStateAction<boolean>>;
   setShowManageCard: React.Dispatch<React.SetStateAction<boolean>>;
+  setShowManageProfile: React.Dispatch<React.SetStateAction<boolean>>;
 }

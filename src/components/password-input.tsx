@@ -13,6 +13,7 @@ import {
 import { Input } from "./ui/input";
 import { CheckedState } from "@radix-ui/react-checkbox";
 import { Checkbox } from "./ui/checkbox";
+import { Label } from "./ui/label";
 
 const PasswordInput: React.FC = () => {
   const {
@@ -67,12 +68,12 @@ const PasswordInput: React.FC = () => {
         </div>
         <div className="flex items-center space-x-2">
           <Checkbox id="save-pwd" checked={savePwd} onCheckedChange={setSavePwd} />
-          <label
+          <Label
             htmlFor="save-pwd"
             className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
           >
             Save my password for next transaction
-          </label>
+          </Label>
         </div>
         <AlertDialogFooter>
           <Button variant="secondary" onClick={handleCancel}>
