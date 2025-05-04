@@ -4,6 +4,10 @@ import { useCart } from "@/context/CartContext";
 import { ethers } from "ethers";
 import { ArrowLeft, Rocket } from "lucide-react";
 import { useState } from "react";
+import { useAppContext } from "@/context/app";
+import axios from "axios";
+import { toast } from "sonner";
+import { celeberate } from "@/lib/confetti";
 
 interface CheckoutProps {
   showCheckout: boolean;
@@ -16,7 +20,8 @@ const Checkout: React.FC<CheckoutProps> = ({
   setShowCheckout,
   setShowCart,
 }) => {
-  const { cartItems } = useCart();
+  const { cartItems,clearCart } = useCart();
+  const { postPwdCb, setPwdOpen, token } = useAppContext();
   const [isEditingAddress, setIsEditingAddress] = useState(false);
   const [address, setAddress] = useState("");
 
@@ -26,6 +31,45 @@ const Checkout: React.FC<CheckoutProps> = ({
   );
   const delivery = subtotal > 0n ? BigInt("5000000000000000000") : BigInt(0); // 5 IOTA
   const total = subtotal + delivery;
+
+  function convertBigIntToString(obj:unknown) {
+    return JSON.parse(
+      JSON.stringify(obj, (_, value) =>
+        typeof value === "bigint" ? value.toString() : value
+      )
+    );
+  }
+
+  const handlePay = () => {
+
+
+    if (!postPwdCb) return;
+    postPwdCb.current = (password: string) => {
+      const requestBody = convertBigIntToString({
+        tokenIds: cartItems.map((item) => item.tokenId),
+        password,
+        paymentMethod: "wallet",
+        currency: "IOTA",
+        amount: ethers.formatEther(total),
+      });
+      const sendTx = axios.post("/transaction/bulk", requestBody, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      toast.promise(sendTx, {
+        loading: `Paying ${ethers.formatEther(total)} IOTA...`,
+        success: "Transaction successfull!!",
+        error: "Transaction failed. Please try again.",
+      });
+      sendTx
+        .then(() => {
+          setShowCheckout(false);
+          setShowCart(false);
+          celeberate();
+          clearCart()
+        })
+    };
+    setPwdOpen!(true);
+  };
 
   return (
     <Sheet open={showCheckout} onOpenChange={setShowCheckout}>
@@ -123,7 +167,7 @@ const Checkout: React.FC<CheckoutProps> = ({
             <span>Total</span>
             <span>{ethers.formatEther(total)} IOTA</span>
           </div>
-          <Button className="w-full">
+          <Button className="w-full" onClick={handlePay}>
             <Rocket />
             Pay {ethers.formatEther(total)} IOTA
           </Button>
