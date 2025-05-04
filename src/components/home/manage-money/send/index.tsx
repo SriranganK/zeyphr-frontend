@@ -13,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { DICEBEAR_API } from "@/data/app";
 import { useAppContext } from "@/context/app";
 import axios from "axios";
+import { celeberate } from "@/lib/confetti";
 
 const SendMoney: React.FC = () => {
   const location = useLocation();
@@ -70,6 +71,7 @@ const SendMoney: React.FC = () => {
           setFinalUser(null);
           setAmount("");
           setUserKey("");
+          celeberate();
         })
         .finally(() => setSending(false));
     };

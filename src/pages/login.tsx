@@ -33,6 +33,7 @@ import { Label } from "@/components/ui/label";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { useAppContext } from "@/context/app";
 import { Navigate } from "react-router";
+import { celeberate } from "@/lib/confetti";
 
 const LoginPage: React.FC = () => {
   const { token, setToken } = useAppContext();
@@ -143,6 +144,7 @@ const LoginPage: React.FC = () => {
         .then(({ data }) => {
           setToken!(data.token);
           cleanUp();
+          celeberate();
         })
         .catch((err) => {
           if (isAxiosError(err)) {
