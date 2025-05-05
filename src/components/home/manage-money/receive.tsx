@@ -20,7 +20,7 @@ const Receive: React.FC = () => {
     <>
       {(amount.length > 0 && Number(amount??"0") > 0) ? (
         <QRCode
-          value={`zeyphr://qrpay?pub=${publicKey}&am=${amount}&id=${txId}`}
+          value={`zeyphr://qrpay?pub=${publicKey}&amt=${amount}&id=${txId}`}
           className="size-36 rounded"
         />
       ) : (
