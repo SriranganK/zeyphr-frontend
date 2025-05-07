@@ -20,8 +20,11 @@ import { FAUCET_LINK } from "@/data/app";
 import { Label } from "@radix-ui/react-label";
 import { cn, formatCurrency } from "@/lib/utils";
 
-const HeaderBalance: React.FC<HeaderBalanceProps> = ({hidden}) => {
+const HeaderBalance: React.FC<HeaderBalanceProps> = ({ hidden }) => {
   const { token } = useAppContext();
+  const [open, setOpen] = useState<boolean>(
+    (localStorage.getItem("zeyphr-faucet-open") ?? "true") === "true"
+  );
   const publicKey = (
     jwtDecode(token) as CustomJwtPayload
   ).publicKey.toLowerCase();
@@ -56,8 +59,12 @@ const HeaderBalance: React.FC<HeaderBalanceProps> = ({hidden}) => {
     fetchBalance();
   }, [fetchBalance]);
 
+  useEffect(() => {
+    localStorage.setItem("zeyphr-faucet-open", open ? "true" : "false");
+  }, [open]);
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild className={cn(hidden && "hidden")}>
         <div className="flex items-center gap-1 cursor-pointer hover:opacity-50">
           {balanceFetching ? (

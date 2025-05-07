@@ -143,6 +143,7 @@ const LoginPage: React.FC = () => {
       });
       registerUserPromise
         .then(({ data }) => {
+          localStorage.setItem("zeyphr-faucet-open", "true");
           setToken!(data.token);
           cleanUp();
           celeberate();
