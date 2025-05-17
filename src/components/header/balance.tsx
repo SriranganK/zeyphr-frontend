@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { FAUCET_LINK } from "@/data/app";
 import { Label } from "@radix-ui/react-label";
 import { cn, formatCurrency } from "@/lib/utils";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert"; // Import ShadCN Alert components
 
 const HeaderBalance: React.FC<HeaderBalanceProps> = ({ hidden }) => {
   const { token } = useAppContext();
@@ -51,7 +52,7 @@ const HeaderBalance: React.FC<HeaderBalanceProps> = ({ hidden }) => {
         setTimeout(() => setCopied(false), 2000);
       })
       .catch(() =>
-        toast.error("Failed to copy wallets address. Please try again.")
+        toast.error("Failed to copy wallet address. Please try again.")
       );
   };
 
@@ -110,6 +111,15 @@ const HeaderBalance: React.FC<HeaderBalanceProps> = ({ hidden }) => {
             </ToolTip>
           </div>
         </div>
+        <Alert variant="destructive">
+          <AlertTitle>Important Notice</AlertTitle>
+          <AlertDescription>
+            The IOTA faucet is no longer available for funding wallets. That’s
+            why we’ve provided 100 IOTA to your account to get started. If you
+            need more, please send your username or email address along with the amount
+            you need to 2020ad0149@svce.ac.in
+          </AlertDescription>
+        </Alert>
         <Button asChild>
           <a href={FAUCET_LINK} target="_blank" rel="noopener noreferrer">
             <Send />

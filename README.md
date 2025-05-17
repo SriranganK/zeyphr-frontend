@@ -5,6 +5,18 @@ Zeyphr is a decentralized Web3 marketplace and crypto-native payment platform bu
 
 ---
 
+## 📣 A Kind Note for Judges
+
+After our May 4th submission, the [IOTA EVM Faucet](https://github.com/iotaledger/evm-toolkit) we used was deprecated. Since our “Bank Deposit” feature wasn’t ready before the deadline, we relied on the faucet to fund wallets.
+
+To ensure a smooth demo, we allocated 4500 IOTA to a central wallet. New users now receive 100 IOTA on signup to try key features like scan & pay, transfers, and purchases.
+
+You can watch our [demo video](https://youtu.be/2_dmkKHpmGk?si=LUITiZmzf1zUCH3Y) and compare it with the current app — you won’t notice any critical new features.
+
+If you have any questions, please feel free to email us at [2020ad0149@svce.ac.in](mailto:2020ad0149@svce.ac.in). We’re happy to help and usually respond within 14 hours.
+
+---
+
 ## 🔗 Links
 
 - [📹️ **Demo Video**](https://youtu.be/2_dmkKHpmGk?si=Itxnn4ckQVZE4EFu)
