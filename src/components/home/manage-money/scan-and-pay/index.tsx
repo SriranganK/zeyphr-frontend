@@ -20,7 +20,7 @@ const ScanAndPay: React.FC = () => {
     const [paymentDetails, setPaymentDetails] = useState<{
       user: UserInfo;
       amount: string;
-      txId:string }>();
+      txId: string }>();
 
     const handleCancel = () => {
         if (!paymentDetails) return;
