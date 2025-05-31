@@ -17,7 +17,10 @@ const ScanAndPay: React.FC = () => {
     const { postPwdCb, setPwdOpen } = useAppContext();
     const [fetching, setFetching] = useState<boolean>(false);
     const [sending, setSending] = useState<boolean>(false);
-    const [paymentDetails, setPaymentDetails] = useState<{ user: UserInfo; amount: string }>();
+    const [paymentDetails, setPaymentDetails] = useState<{
+      user: UserInfo;
+      amount: string;
+      txId:string }>();
 
     const handleCancel = () => {
         if (!paymentDetails) return;
@@ -34,6 +37,7 @@ const ScanAndPay: React.FC = () => {
                 {
                     to: paymentDetails.user.publicKey.toLowerCase(),
                     amount: paymentDetails.amount,
+                    txId:paymentDetails.txId,
                     password,
                     paymentMethod: "wallet",
                     currency: "IOTA",
@@ -65,7 +69,7 @@ const ScanAndPay: React.FC = () => {
 
     useEffect(() => {
         if (!qrValue.includes("zeyphr://qrpay")) return;
-        const { publicKey: toPbKey, amount } = parseZeyphrQR(qrValue);
+        const { publicKey: toPbKey, amount,txId } = parseZeyphrQR(qrValue);
         if (!toPbKey) return;
         const fetchUser = async () => {
             try {
@@ -76,7 +80,7 @@ const ScanAndPay: React.FC = () => {
                         headers: { Authorization: `Bearer ${token}` },
                     }
                 );
-                setPaymentDetails({ user: data, amount });
+                setPaymentDetails({ user: data, amount, txId });
             } finally {
                 setFetching(false);
             }
