@@ -29,7 +29,8 @@ const Header: React.FC = () => {
   const [showLogout, setShowLogout] = useState<boolean>(false);
   const [showCart, setShowCart] = useState<boolean>(false);
   const [showManageCard, setShowManageCard] = useState<boolean>(false);
-  const [showManageProducts, setShowManageProducts] = useState<boolean>(false);  const [showManageProfile, setShowManageProfile] = useState<boolean>(false);
+  const [showManageProducts, setShowManageProducts] = useState<boolean>(false);  
+  const [showManageProfile, setShowManageProfile] = useState<boolean>(false);
 
 
   return (

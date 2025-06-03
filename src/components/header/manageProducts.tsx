@@ -107,7 +107,7 @@ export default function ManageProductsSheet({ showManageProducts, setShowManageP
                 </DialogHeader>
 
                 <form className="space-y-4" onSubmit={handleAddProduct}>
-                  <div>
+                  <div className="flex flex-col gap-1">
                     <Label>Title</Label>
                     <Input
                       type="text"
@@ -118,7 +118,7 @@ export default function ManageProductsSheet({ showManageProducts, setShowManageP
                     />
                   </div>
 
-                  <div>
+                  <div className="flex flex-col gap-1">
                     <Label>Description</Label>
                     <Textarea
                       value={description}
@@ -137,31 +137,31 @@ export default function ManageProductsSheet({ showManageProducts, setShowManageP
                     />
                   </div>
 
+                  <div className="flex flex-col gap-1">
+                    <Label>Amount</Label>
+                    <Input
+                      type="number"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
+                      placeholder="Enter amount"
+                      required
+                    />
+                  </div>
+
                   {!transferable && (
-                    <div>
-                      <Label>Amount</Label>
+                    <div className="flex flex-col gap-1">
+                      <Label>Quantity</Label>
                       <Input
                         type="number"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        placeholder="Enter amount"
+                        value={quantity}
+                        onChange={(e) => setQuantity(e.target.value)}
+                        placeholder="Enter quantity"
                         required
                       />
                     </div>
                   )}
 
-                  <div>
-                    <Label>Quantity</Label>
-                    <Input
-                      type="number"
-                      value={quantity}
-                      onChange={(e) => setQuantity(e.target.value)}
-                      placeholder="Enter quantity"
-                      required
-                    />
-                  </div>
-
-                  <div>
+                  <div className="flex flex-col gap-1">
                     <Label>Upload File</Label>
                     <Input
                       type="file"
@@ -180,7 +180,7 @@ export default function ManageProductsSheet({ showManageProducts, setShowManageP
           </div>
 
           <div className="mt-6 space-y-4">
-            <UserCollection {...{token}} />
+            <UserCollection {...{ token }} />
           </div>
         </SheetContent>
       </Sheet>
